@@ -1,0 +1,1072 @@
+:root {
+  --bg: #f2f2f2;
+  --bg-accent: #f6faf6;
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-strong: #ffffff;
+  --surface-tint: rgba(200, 223, 198, 0.58);
+  --text: #273c3a;
+  --muted: #566966;
+  --line: rgba(39, 60, 58, 0.12);
+  --accent: #56c477;
+  --accent-deep: #273c3a;
+  --accent-soft: #c8dfc6;
+  --sand: #f4ede3;
+  --sand-deep: #a97d58;
+  --danger: #9e6146;
+  --good: #1f8b74;
+  --shadow: 0 30px 80px rgba(39, 60, 58, 0.12);
+  --shadow-soft: 0 18px 38px rgba(39, 60, 58, 0.09);
+  --radius-xl: 34px;
+  --radius-lg: 24px;
+  --radius-md: 18px;
+  --radius-sm: 14px;
+  --rail-width: 320px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Work Sans", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(86, 196, 119, 0.14), transparent 24%),
+    radial-gradient(circle at top right, rgba(39, 60, 58, 0.12), transparent 20%),
+    linear-gradient(180deg, #f3f3f1 0%, #f8faf7 42%, #f3f3f1 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, transparent 0 42%, rgba(86, 196, 119, 0.04) 42% 43%, transparent 43% 100%),
+    linear-gradient(175deg, transparent 0 66%, rgba(39, 60, 58, 0.04) 66% 67%, transparent 67% 100%);
+  opacity: 0.9;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-shell {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--rail-width) minmax(0, 1fr);
+  gap: 28px;
+  padding: 22px;
+}
+
+.story-rail {
+  position: sticky;
+  top: 22px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: calc(100vh - 44px);
+  padding: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 32px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+}
+
+.story-rail::after {
+  content: "";
+  position: absolute;
+  inset: auto -30px -30px auto;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(11, 122, 124, 0.16), transparent 70%);
+}
+
+.rail-block {
+  position: relative;
+  z-index: 1;
+}
+
+.brand-block h1,
+.panel h2,
+.panel h3,
+.clinic-card h2 {
+  margin: 0;
+  font-family: "Cormorant", serif;
+  letter-spacing: -0.03em;
+}
+
+.brand-block h1 {
+  margin-top: 8px;
+  font-size: 2.55rem;
+  line-height: 0.98;
+}
+
+.brand-logo {
+  width: min(220px, 100%);
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.rail-copy,
+.concept-copy,
+.clinic-card p,
+.panel p,
+.panel li,
+input,
+button {
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.eyebrow,
+.mini-label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #3c8c54;
+}
+
+.mini-label {
+  color: var(--muted);
+}
+
+.concept-block {
+  padding: 16px 18px;
+  border-radius: 22px;
+  background: linear-gradient(160deg, rgba(200, 223, 198, 0.34), rgba(255, 255, 255, 0.4));
+  border: 1px solid rgba(39, 60, 58, 0.08);
+}
+
+.story-nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px;
+  overflow: auto;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-weight: 700;
+  transition: 180ms ease;
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+  color: var(--text);
+  background: rgba(200, 223, 198, 0.58);
+}
+
+.clinic-card {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding: 20px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(239, 247, 238, 0.98), rgba(255, 255, 255, 0.92));
+  border: 1px solid rgba(39, 60, 58, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.clinic-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  background: rgba(200, 223, 198, 0.9);
+  color: var(--accent-deep);
+}
+
+.clinic-card h2 {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+}
+
+.clinic-card p {
+  margin: 0 0 8px;
+  color: var(--muted);
+}
+
+.hours ul,
+.tag-group,
+.hero-pills,
+.scenario-benefits ul,
+.capability-card ul,
+.route-card ul,
+.closing-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hours ul {
+  display: grid;
+  gap: 6px;
+}
+
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tag-group span,
+.hero-pills span {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(39, 60, 58, 0.08);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.story-main {
+  display: grid;
+  gap: 28px;
+  padding-bottom: 30px;
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  padding: 34px;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.74));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: -60px auto auto -60px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 223, 198, 0.65), transparent 70%);
+  pointer-events: none;
+}
+
+.section-heading {
+  max-width: 860px;
+}
+
+.panel h2 {
+  margin-top: 10px;
+  font-size: clamp(2.1rem, 2.8vw, 3.4rem);
+  line-height: 0.98;
+}
+
+.section-copy,
+.lead,
+.closing-statement,
+#roiNarrative,
+#paybackCopy,
+#breakEvenCopy {
+  margin-top: 14px;
+  color: var(--muted);
+}
+
+.hero-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 26px;
+  align-items: stretch;
+  min-height: 88vh;
+}
+
+.panel-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  background: linear-gradient(135deg, #273c3a, #3a5754);
+  color: white;
+  box-shadow: 0 14px 30px rgba(39, 60, 58, 0.2);
+}
+
+.button-secondary {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(17, 50, 58, 0.1);
+}
+
+.hero-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(39, 60, 58, 0.62), rgba(39, 60, 58, 0.5)),
+    url("./assets/dunia-hero.jpg") center center / cover no-repeat;
+  border: 1px solid rgba(39, 60, 58, 0.12);
+  color: white;
+}
+
+.stage-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.stage-header h3 {
+  margin-top: 8px;
+  font-size: 1.35rem;
+}
+
+.hero-stage .mini-label,
+.hero-stage h3,
+.hero-stage p {
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.segmented-control,
+.scenario-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.toggle-button,
+.scenario-tab {
+  min-height: 42px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--accent-deep);
+  font-weight: 800;
+  cursor: pointer;
+  transition: 180ms ease;
+}
+
+.toggle-button.is-active,
+.scenario-tab.is-active {
+  background: #273c3a;
+  color: white;
+}
+
+.call-stage {
+  display: grid;
+  gap: 14px;
+}
+
+.call-card {
+  position: relative;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.call-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -26px -26px auto;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.call-card-risk::after {
+  background: radial-gradient(circle, rgba(158, 97, 70, 0.18), transparent 72%);
+}
+
+.call-card-good::after {
+  background: radial-gradient(circle, rgba(31, 139, 116, 0.18), transparent 72%);
+}
+
+.call-card-muted::after {
+  background: radial-gradient(circle, rgba(17, 50, 58, 0.1), transparent 72%);
+}
+
+.call-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.call-badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.call-badge-risk {
+  background: rgba(158, 97, 70, 0.12);
+  color: var(--danger);
+}
+
+.call-badge-good {
+  background: rgba(86, 196, 119, 0.16);
+  color: #215f35;
+}
+
+.call-badge-muted {
+  background: rgba(17, 50, 58, 0.07);
+  color: var(--muted);
+}
+
+.call-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.call-card p,
+.stage-summary p,
+.signal-card p,
+.impact-card p,
+.scenario-card p,
+.benefit-card li,
+.journey-step p,
+.journey-note p,
+.route-card li,
+.value-card p,
+.patient-card p,
+.architecture-node p,
+.differential-card p,
+.formula-card p,
+.kpi-card p,
+.roi-summary-card p,
+.closing-card li {
+  color: var(--muted);
+}
+
+.stage-summary {
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.process-map {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.process-step {
+  position: relative;
+  min-height: 210px;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(17, 50, 58, 0.08);
+}
+
+.process-step::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  right: -13px;
+  width: 26px;
+  height: 2px;
+  background: rgba(17, 50, 58, 0.14);
+}
+
+.process-step:last-child::before {
+  display: none;
+}
+
+.step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+  border-radius: 14px;
+  font-family: "Work Sans", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  background: rgba(200, 223, 198, 0.6);
+}
+
+.emphasis-risk {
+  background: linear-gradient(180deg, rgba(241, 232, 222, 0.95), rgba(255, 255, 255, 0.88));
+}
+
+.emphasis-good {
+  background: linear-gradient(180deg, rgba(200, 223, 198, 0.86), rgba(255, 255, 255, 0.92));
+}
+
+.bottleneck-grid,
+.impact-grid,
+.value-grid,
+.patient-grid,
+.differential-grid,
+.kpi-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.bottleneck-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.signal-card,
+.impact-card,
+.scenario-card,
+.benefit-card,
+.capability-card,
+.journey-note,
+.route-card,
+.value-card,
+.patient-card,
+.architecture-node,
+.differential-card,
+.roi-summary-card,
+.kpi-card,
+.formula-card,
+.closing-card {
+  padding: 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(17, 50, 58, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.impact-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.impact-card {
+  position: relative;
+  padding-top: 26px;
+}
+
+.impact-ring {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+  border: 8px solid rgba(86, 196, 119, 0.18);
+  border-radius: 50%;
+}
+
+.honesty-banner {
+  margin-top: 24px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(244, 237, 227, 0.82), rgba(255, 255, 255, 0.84));
+  border: 1px solid rgba(169, 125, 88, 0.18);
+}
+
+.scenario-stage {
+  margin-top: 20px;
+}
+
+.scenario-header h3 {
+  margin-top: 8px;
+  font-size: 1.6rem;
+}
+
+.scenario-columns,
+.scenario-benefits,
+.route-grid,
+.journey-layout,
+.roi-layout {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.scenario-columns,
+.scenario-benefits,
+.route-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scenario-card-good,
+.capability-card-good,
+.route-card-good {
+  background: linear-gradient(180deg, rgba(200, 223, 198, 0.9), rgba(255, 255, 255, 0.92));
+}
+
+.benefit-card ul,
+.route-card ul,
+.capability-card ul,
+.closing-card ul {
+  display: grid;
+  gap: 10px;
+}
+
+.benefit-card li,
+.capability-card li,
+.route-card li,
+.closing-card li {
+  padding-left: 18px;
+  position: relative;
+}
+
+.benefit-card li::before,
+.capability-card li::before,
+.route-card li::before,
+.closing-card li::before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #56c477;
+}
+
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.capability-card-warn {
+  background: linear-gradient(180deg, rgba(244, 237, 227, 0.92), rgba(255, 255, 255, 0.92));
+}
+
+.journey-layout {
+  grid-template-columns: minmax(0, 1fr) 300px;
+}
+
+.journey-steps {
+  display: grid;
+  gap: 12px;
+}
+
+.journey-step {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(17, 50, 58, 0.08);
+}
+
+.journey-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  background: rgba(200, 223, 198, 0.78);
+  color: var(--accent-deep);
+}
+
+.doctoralia-link {
+  display: block;
+  margin: 10px 0 16px;
+  font-weight: 800;
+  color: #2f5b4f;
+  overflow-wrap: anywhere;
+}
+
+.value-grid,
+.differential-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.patient-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.architecture {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.architecture-node {
+  min-height: 220px;
+  position: relative;
+}
+
+.architecture-node::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -15px;
+  width: 30px;
+  height: 2px;
+  background: rgba(17, 50, 58, 0.14);
+}
+
+.architecture-node:last-child::before {
+  display: none;
+}
+
+.architecture-node-accent {
+  background: linear-gradient(180deg, rgba(200, 223, 198, 0.96), rgba(255, 255, 255, 0.92));
+}
+
+.roi-panel {
+  overflow: visible;
+}
+
+.roi-layout {
+  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+}
+
+.roi-form {
+  display: grid;
+  gap: 18px;
+}
+
+.pricing-highlight {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.price-card {
+  display: grid;
+  gap: 10px;
+  padding: 22px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(39, 60, 58, 0.96), rgba(58, 87, 84, 0.96));
+  box-shadow: var(--shadow-soft);
+  color: white;
+}
+
+.price-card .mini-label {
+  color: rgba(200, 223, 198, 0.88);
+}
+
+.price-card strong {
+  font-family: "Cormorant", serif;
+  font-size: 2rem;
+  line-height: 0.96;
+}
+
+.price-card input {
+  width: 100%;
+  min-height: 64px;
+  padding: 14px 16px;
+  border: 1px solid rgba(200, 223, 198, 0.3);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.price-card input::placeholder {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.price-card small {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.form-group {
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(17, 50, 58, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.form-group label {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.form-group span {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.form-group input {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(39, 60, 58, 0.12);
+  background: rgba(248, 250, 247, 0.96);
+  color: var(--text);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: rgba(86, 196, 119, 0.46);
+  box-shadow: 0 0 0 5px rgba(86, 196, 119, 0.1);
+}
+
+.roi-results {
+  display: grid;
+  gap: 18px;
+}
+
+.kpi-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.kpi-card h3,
+.roi-summary-card h3 {
+  margin-top: 10px;
+  font-size: 1.6rem;
+}
+
+.roi-bars {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(17, 50, 58, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr) 140px;
+  align-items: center;
+  gap: 14px;
+}
+
+.bar-row span,
+.bar-row strong {
+  font-size: 0.94rem;
+}
+
+.bar-track {
+  height: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(17, 50, 58, 0.08);
+}
+
+.bar-fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 220ms ease;
+}
+
+.bar-fill-accent {
+  background: linear-gradient(90deg, #273c3a, #56c477);
+}
+
+.bar-fill-soft {
+  background: linear-gradient(90deg, #56a06d, #a8d2a4);
+}
+
+.bar-fill-cost {
+  background: linear-gradient(90deg, #a97d58, #dfbea0);
+}
+
+.roi-footnotes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.closing-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) 360px;
+  gap: 20px;
+  align-items: center;
+}
+
+.closing-card h3 {
+  margin-top: 10px;
+  font-size: 1.4rem;
+}
+
+@media (max-width: 1400px) {
+  .process-map,
+  .architecture {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .process-step:nth-child(3)::before,
+  .architecture-node:nth-child(3)::before {
+    display: none;
+  }
+
+  .patient-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1180px) {
+  .page-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .story-rail {
+    position: relative;
+    top: 0;
+    height: auto;
+  }
+
+  .story-nav {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .hero-panel,
+  .journey-layout,
+  .roi-layout,
+  .closing-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-highlight {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .panel,
+  .story-rail {
+    padding: 24px;
+  }
+
+  .story-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .process-map,
+  .bottleneck-grid,
+  .impact-grid,
+  .scenario-columns,
+  .scenario-benefits,
+  .capability-grid,
+  .route-grid,
+  .value-grid,
+  .patient-grid,
+  .architecture,
+  .roi-footnotes {
+    grid-template-columns: 1fr;
+  }
+
+  .process-step::before,
+  .architecture-node::before {
+    top: auto;
+    right: auto;
+    left: 50%;
+    bottom: -14px;
+    width: 2px;
+    height: 28px;
+    transform: translateX(-50%);
+  }
+
+  .process-step:last-child::before,
+  .architecture-node:last-child::before {
+    display: none;
+  }
+
+  .bar-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .patient-grid,
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .page-shell {
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .story-nav {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-actions,
+  .segmented-control,
+  .scenario-tabs {
+    width: 100%;
+  }
+
+  .toggle-button,
+  .scenario-tab,
+  .button {
+    flex: 1 1 0;
+  }
+
+  .stage-header {
+    flex-direction: column;
+  }
+}
