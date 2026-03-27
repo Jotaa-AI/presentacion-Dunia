@@ -304,10 +304,9 @@ button {
 
 .hero-panel {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-  gap: 26px;
-  align-items: stretch;
-  min-height: 88vh;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  min-height: auto;
 }
 
 .panel-copy {
@@ -315,6 +314,147 @@ button {
   flex-direction: column;
   gap: 18px;
   justify-content: center;
+}
+
+.hero-intro {
+  max-width: 980px;
+}
+
+.map-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hero-map-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.flow-board {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+  border-radius: 28px;
+  border: 1px solid rgba(39, 60, 58, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.flow-board-risk {
+  background: linear-gradient(180deg, rgba(244, 237, 227, 0.92), rgba(255, 255, 255, 0.92));
+}
+
+.flow-board-good {
+  background: linear-gradient(180deg, rgba(235, 245, 233, 0.96), rgba(255, 255, 255, 0.92));
+}
+
+.flow-board-head h3 {
+  margin-top: 8px;
+  font-size: 1.55rem;
+}
+
+.flow-map {
+  display: grid;
+  gap: 14px;
+}
+
+.flow-step-card {
+  position: relative;
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(39, 60, 58, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.flow-step-card::after {
+  content: "";
+  position: absolute;
+  left: 28px;
+  bottom: -14px;
+  width: 2px;
+  height: 14px;
+  background: rgba(39, 60, 58, 0.14);
+}
+
+.flow-step-card:last-child::after {
+  display: none;
+}
+
+.flow-step-card.is-highlighted {
+  transform: translateY(-2px);
+  border-color: rgba(39, 60, 58, 0.16);
+  box-shadow: 0 18px 36px rgba(39, 60, 58, 0.12);
+}
+
+.flow-step-card-risk.is-highlighted {
+  background: linear-gradient(180deg, rgba(244, 237, 227, 0.98), rgba(255, 255, 255, 0.96));
+}
+
+.flow-step-card-good.is-highlighted {
+  background: linear-gradient(180deg, rgba(226, 242, 223, 0.98), rgba(255, 255, 255, 0.96));
+}
+
+.flow-step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.flow-step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 14px;
+  background: rgba(200, 223, 198, 0.56);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.flow-step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.flow-step-badge-risk {
+  background: rgba(169, 125, 88, 0.18);
+  color: #885a35;
+}
+
+.flow-step-badge-good {
+  background: rgba(86, 196, 119, 0.18);
+  color: #2d6e40;
+}
+
+.flow-step-badge-neutral {
+  background: rgba(39, 60, 58, 0.08);
+  color: var(--muted);
+}
+
+.flow-step-card h4 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+.flow-insight-card {
+  padding: 20px 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(39, 60, 58, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .hero-actions {
@@ -349,37 +489,6 @@ button {
   border: 1px solid rgba(17, 50, 58, 0.1);
 }
 
-.hero-stage {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 20px;
-  border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(39, 60, 58, 0.62), rgba(39, 60, 58, 0.5)),
-    url("./assets/dunia-hero.jpg") center center / cover no-repeat;
-  border: 1px solid rgba(39, 60, 58, 0.12);
-  color: white;
-}
-
-.stage-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.stage-header h3 {
-  margin-top: 8px;
-  font-size: 1.35rem;
-}
-
-.hero-stage .mini-label,
-.hero-stage h3,
-.hero-stage p {
-  color: rgba(255, 255, 255, 0.94);
-}
-
 .segmented-control,
 .scenario-tabs {
   display: flex;
@@ -406,79 +515,6 @@ button {
   color: white;
 }
 
-.call-stage {
-  display: grid;
-  gap: 14px;
-}
-
-.call-card {
-  position: relative;
-  padding: 18px;
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow: var(--shadow-soft);
-  overflow: hidden;
-}
-
-.call-card::after {
-  content: "";
-  position: absolute;
-  inset: auto -26px -26px auto;
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  opacity: 0.8;
-}
-
-.call-card-risk::after {
-  background: radial-gradient(circle, rgba(158, 97, 70, 0.18), transparent 72%);
-}
-
-.call-card-good::after {
-  background: radial-gradient(circle, rgba(31, 139, 116, 0.18), transparent 72%);
-}
-
-.call-card-muted::after {
-  background: radial-gradient(circle, rgba(17, 50, 58, 0.1), transparent 72%);
-}
-
-.call-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.call-badge {
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 0.76rem;
-  font-weight: 800;
-}
-
-.call-badge-risk {
-  background: rgba(158, 97, 70, 0.12);
-  color: var(--danger);
-}
-
-.call-badge-good {
-  background: rgba(86, 196, 119, 0.16);
-  color: #215f35;
-}
-
-.call-badge-muted {
-  background: rgba(17, 50, 58, 0.07);
-  color: var(--muted);
-}
-
-.call-card h4 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 800;
-}
-
 .call-card p,
 .stage-summary p,
 .signal-card p,
@@ -497,13 +533,6 @@ button {
 .roi-summary-card p,
 .closing-card li {
   color: var(--muted);
-}
-
-.stage-summary {
-  padding: 18px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .process-map {
@@ -596,7 +625,7 @@ button {
 }
 
 .impact-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .impact-card {
@@ -988,6 +1017,10 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .hero-map-grid {
+    grid-template-columns: 1fr;
+  }
+
   .pricing-highlight {
     grid-template-columns: 1fr;
   }
@@ -1056,6 +1089,7 @@ button {
 
   .hero-actions,
   .segmented-control,
+  .map-toolbar,
   .scenario-tabs {
     width: 100%;
   }
@@ -1064,9 +1098,5 @@ button {
   .scenario-tab,
   .button {
     flex: 1 1 0;
-  }
-
-  .stage-header {
-    flex-direction: column;
   }
 }

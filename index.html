@@ -41,19 +41,12 @@
         </div>
 
         <nav class="story-nav">
-          <a href="#apertura" class="nav-link">Apertura</a>
-          <a href="#flujo-actual" class="nav-link">Flujo actual</a>
-          <a href="#coste-oculto" class="nav-link">Coste oculto</a>
-          <a href="#nuevo-sistema" class="nav-link">Nuevo sistema</a>
-          <a href="#escenarios" class="nav-link">Escenarios</a>
-          <a href="#alcance" class="nav-link">Alcance</a>
-          <a href="#whatsapp" class="nav-link">Reserva por WhatsApp</a>
-          <a href="#cambios" class="nav-link">Cambios y cancelaciones</a>
-          <a href="#impacto-clinica" class="nav-link">Impacto clínica</a>
-          <a href="#impacto-paciente" class="nav-link">Impacto paciente</a>
-          <a href="#arquitectura" class="nav-link">Arquitectura</a>
-          <a href="#diferencial" class="nav-link">Diferencial</a>
-          <a href="#roi" class="nav-link">Inversión y ROI</a>
+          <a href="#apertura" class="nav-link">Mapa inicial</a>
+          <a href="#coste-oculto" class="nav-link">Dolor actual</a>
+          <a href="#escenarios" class="nav-link">Cómo se resuelve</a>
+          <a href="#alcance" class="nav-link">Límites</a>
+          <a href="#impacto-clinica" class="nav-link">Valor</a>
+          <a href="#roi" class="nav-link">Inversión</a>
           <a href="#cierre" class="nav-link">Cierre</a>
         </nav>
 
@@ -75,69 +68,73 @@
             </ul>
           </div>
           <div class="tag-group">
-            <span>Retell AI</span>
+            <span>Agente de voz</span>
             <span>WhatsApp</span>
             <span>Doctoralia</span>
-            <span>Sin API con Clinic Cloud</span>
+            <span>Sin conexión directa con agenda</span>
           </div>
         </div>
       </aside>
 
       <main class="story-main">
         <section id="apertura" class="panel hero-panel">
-          <div class="panel-copy">
-            <p class="eyebrow">Proyecto de continuidad telefónica inteligente</p>
-            <h2>
-              Una propuesta pensada para la operativa real de una clínica dental, no
-              para una demo tecnológica.
-            </h2>
+          <div class="hero-intro">
+            <p class="eyebrow">Mapa inicial</p>
+            <h2>Hoy hay llamadas con intención real que se pierden por falta de continuidad.</h2>
             <p class="lead">
-              El objetivo no es “poner un bot”. El objetivo es evitar que Dunia
-              Institut Dental pierda llamadas, tiempo de recepción y oportunidades de
-              primera visita cuando el teléfono llega en el peor momento: en plena
-              actividad, con la línea ocupada o fuera de horario.
+              El dolor no está en el teléfono. Está en que la llamada entra, no encuentra
+              respuesta útil y la oportunidad se enfría. La propuesta resuelve eso con un
+              flujo simple: respuesta inmediata, orientación clara y siguiente paso correcto.
             </p>
             <div class="hero-pills">
-              <span>Respuesta inmediata</span>
-              <span>Recepción menos saturada</span>
-              <span>Reserva guiada por WhatsApp</span>
-              <span>Continuidad fuera de horario</span>
-            </div>
-            <div class="hero-actions">
-              <a href="#nuevo-sistema" class="button button-primary">Ver el flujo propuesto</a>
-              <a href="#roi" class="button button-secondary">Ir al bloque de inversión y ROI</a>
+              <span>Picos de llamadas</span>
+              <span>Recepción ocupada</span>
+              <span>Fuera de horario</span>
+              <span>Oportunidades que hoy se escapan</span>
             </div>
           </div>
 
-          <div class="hero-stage">
-            <div class="stage-header">
-              <div>
-                <p class="mini-label">Escena reconocible</p>
-                <h3>Qué pasa hoy vs. qué pasaría con el nuevo sistema</h3>
-              </div>
-              <div class="segmented-control" id="stageToggle">
-                <button type="button" class="toggle-button is-active" data-stage="actual">
-                  Hoy
-                </button>
-                <button type="button" class="toggle-button" data-stage="propuesto">
-                  Con IA
-                </button>
-              </div>
-            </div>
+          <div class="map-toolbar" id="flowFocusToggle">
+            <button type="button" class="toggle-button is-active" data-flow-focus="leaks">
+              Puntos de fuga
+            </button>
+            <button type="button" class="toggle-button" data-flow-focus="solution">
+              Proceso resuelto
+            </button>
+          </div>
 
-            <div class="call-stage" id="callStageCards"></div>
+          <div class="hero-map-grid">
+            <article class="flow-board flow-board-risk">
+              <div class="flow-board-head">
+                <p class="mini-label">Situación actual</p>
+                <h3>Así se escapa hoy una posible cita</h3>
+              </div>
+              <div class="flow-map" id="currentFlowMap"></div>
+            </article>
 
-            <div class="stage-summary">
-              <p class="mini-label">Lectura ejecutiva</p>
-              <p id="callStageSummary">
-                La disponibilidad telefónica depende de que recepción pueda atender
-                justo en ese instante. Cuando eso falla, la llamada se enfría.
-              </p>
+            <article class="flow-board flow-board-good">
+              <div class="flow-board-head">
+                <p class="mini-label">Nuevo flujo</p>
+                <h3>Así se conserva y se guía la llamada</h3>
+              </div>
+              <div class="flow-map" id="futureFlowMap"></div>
+            </article>
+          </div>
+
+          <div class="flow-insight-card">
+            <p class="mini-label" id="flowInsightLabel">Puntos de fuga</p>
+            <p id="flowInsightText">
+              Hoy la fuga aparece en tres momentos: cuando recepción no puede coger, cuando
+              ya hay otra llamada en curso y cuando alguien llama fuera de horario.
+            </p>
+            <div class="hero-actions">
+              <a href="#coste-oculto" class="button button-primary">Ver el dolor actual</a>
+              <a href="#escenarios" class="button button-secondary">Ver cómo se resuelve</a>
             </div>
           </div>
         </section>
 
-        <section id="flujo-actual" class="panel">
+        <section id="flujo-actual" class="panel" hidden>
           <div class="section-heading">
             <p class="eyebrow">1. Flujo actual</p>
             <h2>Hoy el teléfono compite con la operativa presencial.</h2>
@@ -200,58 +197,47 @@
 
         <section id="coste-oculto" class="panel">
           <div class="section-heading">
-            <p class="eyebrow">2. Coste oculto</p>
-            <h2>El problema no solo es perder llamadas. Es desordenar capacidad y experiencia.</h2>
+            <p class="eyebrow">1. Dolor actual</p>
+            <h2>Lo importante no es solo la llamada perdida. Es la oportunidad que se enfría.</h2>
             <p class="section-copy">
-              Cuando el sistema actual se atasca, el impacto no siempre se ve en una
-              cifra inmediata, pero sí se nota en oportunidades, carga operativa y
-              percepción de servicio.
+              Cuando la clínica no puede absorber una llamada en ese momento, se producen
+              cuatro efectos muy claros: fuga de primeras visitas, más carga para recepción,
+              peor experiencia y menos control.
             </p>
           </div>
 
           <div class="impact-grid">
             <article class="impact-card">
               <div class="impact-ring"></div>
-              <h3>Llamadas perdidas</h3>
-              <p>Cada llamada no atendida deja una oportunidad sin recorrido claro.</p>
+              <h3>Primera visita que no entra</h3>
+              <p>La persona quería avanzar, pero la llamada no encontró una salida útil.</p>
             </article>
             <article class="impact-card">
               <div class="impact-ring"></div>
-              <h3>Primeras visitas que se enfrían</h3>
-              <p>Una persona nueva suele esperar inmediatez y simplicidad, no insistencia.</p>
-            </article>
-            <article class="impact-card">
-              <div class="impact-ring"></div>
-              <h3>Recepción más reactiva</h3>
-              <p>El equipo dedica energía a recomponer contexto en vez de avanzar trabajo útil.</p>
+              <h3>Recepción más interrumpida</h3>
+              <p>El equipo mezcla presencial, gestión y teléfono dentro de la misma capacidad.</p>
             </article>
             <article class="impact-card">
               <div class="impact-ring"></div>
               <h3>Experiencia irregular</h3>
-              <p>El servicio percibido depende demasiado del momento concreto en el que alguien llama.</p>
+              <p>La calidad percibida cambia demasiado según el momento en que alguien llama.</p>
             </article>
             <article class="impact-card">
               <div class="impact-ring"></div>
-              <h3>Menos control del flujo</h3>
-              <p>La clínica no dispone de un circuito uniforme para absorber picos o fuera de horario.</p>
-            </article>
-            <article class="impact-card">
-              <div class="impact-ring"></div>
-              <h3>Sobrecarga silenciosa</h3>
-              <p>Las devoluciones, las aclaraciones y los intentos repetidos fragmentan la jornada.</p>
+              <h3>Fuera de horario sin captura</h3>
+              <p>La intención existe, pero la clínica no la recoge cuando más falta hace.</p>
             </article>
           </div>
         </section>
 
-        <section id="nuevo-sistema" class="panel">
+        <section id="nuevo-sistema" class="panel" hidden>
           <div class="section-heading">
             <p class="eyebrow">3. Nuevo sistema propuesto</p>
             <h2>Un flujo más robusto: respuesta inmediata, clasificación clara y siguiente paso útil.</h2>
             <p class="section-copy">
-              La propuesta introduce un agente de voz con IA construido sobre Retell AI
-              para cubrir precisamente los momentos donde hoy se rompe la atención
-              telefónica: ocupación de recepción, línea ya en uso y llamadas fuera de
-              horario.
+              La propuesta introduce un asistente telefónico para cubrir precisamente
+              los momentos donde hoy se rompe la atención: ocupación de recepción,
+              línea ya en uso y llamadas fuera de horario.
             </p>
           </div>
 
@@ -301,11 +287,11 @@
 
         <section id="escenarios" class="panel">
           <div class="section-heading">
-            <p class="eyebrow">4. Escenarios de uso</p>
-            <h2>Tres momentos donde el sistema actual sufre y el nuevo circuito gana valor.</h2>
+            <p class="eyebrow">2. Cómo se resuelve</p>
+            <h2>Tres momentos clave en los que el nuevo flujo evita pérdida y reduce fricción.</h2>
             <p class="section-copy">
-              Cada escenario muestra el antes y el después con un enfoque muy práctico:
-              qué sucede hoy, qué sucede con el nuevo sistema y qué gana cada parte.
+              La lectura es muy simple: qué pasa hoy, qué cambia con la solución y por
+              qué eso tiene valor para la clínica y para el paciente.
             </p>
           </div>
 
@@ -347,12 +333,11 @@
 
         <section id="alcance" class="panel">
           <div class="section-heading">
-            <p class="eyebrow">5. Qué puede resolver y qué no</p>
-            <h2>Confianza operativa: alcance claro, escalado claro y límite clínico claro.</h2>
+            <p class="eyebrow">3. Límites claros</p>
+            <h2>Lo útil está en resolver bien lo que sí se puede y escalar lo que no.</h2>
             <p class="section-copy">
-              La propuesta está diseñada para transmitir control. El agente resuelve lo
-              repetitivo y estructurable, escala lo sensible y nunca pretende sustituir
-              criterio clínico.
+              El valor de la solución está en dar respuesta donde hoy hay fricción, sin
+              invadir decisiones que deben seguir siendo humanas o clínicas.
             </p>
           </div>
 
@@ -390,12 +375,11 @@
 
         <section id="whatsapp" class="panel">
           <div class="section-heading">
-            <p class="eyebrow">6. Ruta de reserva por WhatsApp</p>
-            <h2>Sin API con Clinic Cloud, la solución inteligente es no dejar caer la intención de cita.</h2>
+            <p class="eyebrow">4. Nueva cita</p>
+            <h2>Cuando alguien quiere reservar, la llamada no se pierde: se convierte en un siguiente paso.</h2>
             <p class="section-copy">
-              Aquí está una de las claves estratégicas del proyecto: no simular una
-              agenda conectada que no existe, sino convertir el interés del paciente en
-              una acción inmediata y guiada.
+              La solución no inventa una agenda conectada. Hace algo más importante:
+              mantiene viva la intención y la lleva hacia la reserva online.
             </p>
           </div>
 
@@ -459,12 +443,11 @@
 
         <section id="cambios" class="panel">
           <div class="section-heading">
-            <p class="eyebrow">7. Ruta de cambio o cancelación</p>
-            <h2>Menos fricción, cero promesas falsas y trabajo mejor preparado para el equipo.</h2>
+            <p class="eyebrow">5. Cambio o cancelación</p>
+            <h2>Si no puede cerrarse al instante, al menos queda bien encaminado.</h2>
             <p class="section-copy">
-              El sistema no promete automatizar lo que no está conectado. Lo que hace
-              es guiar bien, filtrar mejor y dejar una base ordenada para el seguimiento
-              humano cuando haga falta.
+              El objetivo no es automatizar por automatizar. Es evitar que el paciente
+              quede en el aire y que el equipo tenga que empezar desde cero después.
             </p>
           </div>
 
@@ -500,12 +483,11 @@
 
         <section id="impacto-clinica" class="panel">
           <div class="section-heading">
-            <p class="eyebrow">8. Impacto para la clínica</p>
-            <h2>Más capacidad de respuesta sin ampliar plantilla ni tensar más recepción.</h2>
+            <p class="eyebrow">6. Valor</p>
+            <h2>La solución vale porque protege oportunidad, tiempo y experiencia.</h2>
             <p class="section-copy">
-              La mejora no se mide solo en tecnología. Se mide en cómo cambia el flujo
-              de trabajo, la cobertura del teléfono y la capacidad de convertir interés
-              en una acción útil.
+              Si la clínica deja de perder llamadas útiles y reduce la presión sobre
+              recepción, gana capacidad sin tener que ampliar plantilla.
             </p>
           </div>
 
@@ -577,7 +559,7 @@
           </div>
         </section>
 
-        <section id="arquitectura" class="panel">
+        <section id="arquitectura" class="panel" hidden>
           <div class="section-heading">
             <p class="eyebrow">10. Arquitectura simple del sistema</p>
             <h2>Un diseño comprensible para dirección: qué entra, qué decide y qué salida genera.</h2>
@@ -600,7 +582,7 @@
             </article>
             <article class="architecture-node architecture-node-accent">
               <p class="mini-label">Capa central</p>
-              <h3>Agente de voz con IA en Retell AI</h3>
+              <h3>Asistente telefónico</h3>
               <p>Responde, clasifica, orienta y activa la ruta correcta.</p>
             </article>
             <article class="architecture-node">
@@ -616,7 +598,7 @@
           </div>
         </section>
 
-        <section id="diferencial" class="panel">
+        <section id="diferencial" class="panel" hidden>
           <div class="section-heading">
             <p class="eyebrow">11. Diferencial del proyecto</p>
             <h2>No es “poner un bot”. Es rediseñar un flujo crítico con criterio operativo.</h2>
@@ -670,7 +652,6 @@
                     name="setupCost"
                     placeholder="Tu importe aquí"
                   />
-                  <small>Rellénalo directamente durante la reunión.</small>
                 </label>
                 <label class="price-card">
                   <span class="mini-label">Precio editable</span>
@@ -682,7 +663,6 @@
                     name="monthlyCost"
                     placeholder="Tu importe aquí"
                   />
-                  <small>Queda visible como bloque comercial final.</small>
                 </label>
               </div>
 

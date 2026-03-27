@@ -1,57 +1,80 @@
-const stageData = {
-  actual: {
-    summary:
-      "La disponibilidad telefónica depende de que recepción pueda atender justo en ese instante. Cuando eso falla, la llamada se enfría o se pierde.",
-    cards: [
-      {
-        title: "16:48 · Llamada de primera visita",
-        badge: "Recepción ocupada",
-        tone: "risk",
-        copy:
-          "El teléfono suena mientras el equipo está atendiendo presencialmente y la llamada no encuentra un circuito paralelo.",
-      },
-      {
-        title: "16:49 · Segunda llamada en cola",
-        badge: "Línea en uso",
-        tone: "risk",
-        copy:
-          "Entra otra llamada cuando recepción ya está resolviendo una anterior. La simultaneidad genera fuga.",
-      },
-      {
-        title: "20:57 · Paciente fuera de horario",
-        badge: "Sin cobertura",
-        tone: "muted",
-        copy:
-          "Existe intención de cita, pero la clínica no puede responder en ese momento y la oportunidad se enfría.",
-      },
-    ],
+const flowMapData = {
+  current: [
+    {
+      title: "Entra la llamada",
+      badge: "Inicio",
+      tone: "neutral",
+      copy: "El paciente llama con una intención real: pedir cita, cambiarla o resolver una duda simple.",
+    },
+    {
+      title: "Recepción está ocupada",
+      badge: "Fuga",
+      tone: "risk",
+      copy: "Está con un paciente, en otra llamada o resolviendo una tarea que no puede interrumpir bien.",
+    },
+    {
+      title: "No hay respuesta útil",
+      badge: "Fuga",
+      tone: "risk",
+      copy: "La llamada espera, se corta o queda para más tarde sin un circuito claro.",
+    },
+    {
+      title: "El paciente decide si insiste",
+      badge: "Riesgo",
+      tone: "risk",
+      copy: "Algunas personas vuelven a llamar; otras comparan o lo dejan para otro momento.",
+    },
+    {
+      title: "La oportunidad se enfría",
+      badge: "Pérdida",
+      tone: "risk",
+      copy: "Se pierde una posible cita y recepción gana trabajo reactivo en lugar de orden.",
+    },
+  ],
+  future: [
+    {
+      title: "Entra la llamada",
+      badge: "Inicio",
+      tone: "neutral",
+      copy: "La llamada sigue entrando por el mismo número y en los mismos momentos de presión.",
+    },
+    {
+      title: "Respuesta inmediata",
+      badge: "Resuelto",
+      tone: "good",
+      copy: "La llamada encuentra atención desde el primer segundo, incluso si recepción no puede coger.",
+    },
+    {
+      title: "Se entiende el motivo",
+      badge: "Resuelto",
+      tone: "good",
+      copy: "Se detecta si la persona quiere reservar, cambiar, cancelar o simplemente orientarse.",
+    },
+    {
+      title: "Se guía la acción",
+      badge: "Resuelto",
+      tone: "good",
+      copy: "Nueva cita por WhatsApp y reserva online; cambio o cancelación bien encaminados.",
+    },
+    {
+      title: "La clínica conserva la oportunidad",
+      badge: "Valor",
+      tone: "good",
+      copy: "La llamada deja un siguiente paso útil en vez de convertirse en una fuga o una interrupción.",
+    },
+  ],
+};
+
+const flowInsightData = {
+  leaks: {
+    label: "Puntos de fuga",
+    text:
+      "Hoy la fuga aparece en tres momentos: cuando recepción no puede coger, cuando ya hay otra llamada en curso y cuando alguien llama fuera de horario.",
   },
-  propuesto: {
-    summary:
-      "El nuevo flujo protege la llamada desde el primer segundo: responde, clasifica, orienta y activa una salida útil sin prometer automatizaciones irreales.",
-    cards: [
-      {
-        title: "16:48 · Respuesta inmediata",
-        badge: "IA activa",
-        tone: "good",
-        copy:
-          "El agente entra cuando recepción está ocupada y evita que el paciente se quede sin respuesta.",
-      },
-      {
-        title: "16:49 · Clasificación del motivo",
-        badge: "Intención detectada",
-        tone: "good",
-        copy:
-          "Distingue entre información, nueva cita, cambio o cancelación y orienta por el circuito correcto.",
-      },
-      {
-        title: "20:57 · Continuidad fuera de horario",
-        badge: "Canal protegido",
-        tone: "good",
-        copy:
-          "Si hay intención de cita, el sistema puede activar WhatsApp con Doctoralia y capturar la oportunidad.",
-      },
-    ],
+  solution: {
+    label: "Proceso resuelto",
+    text:
+      "La solución no complica el proceso: responde, entiende el motivo y lleva la llamada hacia una acción clara en lugar de dejarla caer.",
   },
 };
 
@@ -123,31 +146,45 @@ const decimalFormatter = new Intl.NumberFormat("es-ES", {
   maximumFractionDigits: 1,
 });
 
-function renderStage(stageKey) {
-  const data = stageData[stageKey];
-  const container = document.getElementById("callStageCards");
-  const summary = document.getElementById("callStageSummary");
+function renderFlowMaps(focusKey) {
+  const currentContainer = document.getElementById("currentFlowMap");
+  const futureContainer = document.getElementById("futureFlowMap");
+  const insightLabel = document.getElementById("flowInsightLabel");
+  const insightText = document.getElementById("flowInsightText");
+  const insight = flowInsightData[focusKey];
 
-  if (!container || !summary || !data) return;
+  if (!currentContainer || !futureContainer || !insightLabel || !insightText || !insight) {
+    return;
+  }
 
-  container.innerHTML = data.cards
-    .map(
-      (card) => `
-        <article class="call-card call-card-${card.tone}">
-          <div class="call-card-head">
-            <h4>${card.title}</h4>
-            <span class="call-badge call-badge-${card.tone}">${card.badge}</span>
-          </div>
-          <p>${card.copy}</p>
-        </article>
-      `,
-    )
-    .join("");
+  const renderMap = (steps, mapType) =>
+    steps
+      .map(
+        (step, index) => `
+          <article class="flow-step-card flow-step-card-${step.tone} ${
+            (focusKey === "leaks" && mapType === "current" && step.tone === "risk") ||
+            (focusKey === "solution" && mapType === "future" && step.tone === "good")
+              ? "is-highlighted"
+              : ""
+          }">
+            <div class="flow-step-head">
+              <span class="flow-step-index">0${index + 1}</span>
+              <span class="flow-step-badge flow-step-badge-${step.tone}">${step.badge}</span>
+            </div>
+            <h4>${step.title}</h4>
+            <p>${step.copy}</p>
+          </article>
+        `,
+      )
+      .join("");
 
-  summary.textContent = data.summary;
+  currentContainer.innerHTML = renderMap(flowMapData.current, "current");
+  futureContainer.innerHTML = renderMap(flowMapData.future, "future");
+  insightLabel.textContent = insight.label;
+  insightText.textContent = insight.text;
 
-  document.querySelectorAll("[data-stage]").forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.stage === stageKey);
+  document.querySelectorAll("[data-flow-focus]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.flowFocus === focusKey);
   });
 }
 
@@ -321,15 +358,15 @@ function setupNavObserver() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderStage("actual");
+  renderFlowMaps("leaks");
   renderScenario("a");
   updateRoi();
   setupNavObserver();
 
-  document.getElementById("stageToggle")?.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-stage]");
+  document.getElementById("flowFocusToggle")?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-flow-focus]");
     if (!button) return;
-    renderStage(button.dataset.stage);
+    renderFlowMaps(button.dataset.flowFocus);
   });
 
   document.getElementById("scenarioTabs")?.addEventListener("click", (event) => {
