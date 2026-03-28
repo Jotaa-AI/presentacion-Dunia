@@ -1281,6 +1281,11 @@ button {
   box-shadow: var(--shadow-soft);
 }
 
+.bonus-panel-final {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+}
+
 .bonus-copy h3 {
   margin-top: 10px;
   color: white;
