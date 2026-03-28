@@ -52,30 +52,6 @@
           <a href="#cierre" class="nav-link">Cierre</a>
         </nav>
 
-        <div class="rail-block clinic-card">
-          <div class="clinic-head">
-            <p class="mini-label">Contexto clínico</p>
-            <span class="status-pill">Granollers</span>
-          </div>
-          <h2>Dunia Institut Dental</h2>
-          <p>Carrer de Barcelona, 3-5, 08401 Granollers, Barcelona</p>
-          <p><strong>Teléfono publicado:</strong> 931 273 811</p>
-          <div class="hours">
-            <p class="mini-label">Horario publicado</p>
-            <ul>
-              <li>Lunes: 16:00 a 20:00</li>
-              <li>Martes a viernes: 9:00 a 13:00 y 15:30 a 20:30</li>
-              <li>Sábado: bajo cita previa</li>
-              <li>Domingo: cerrado</li>
-            </ul>
-          </div>
-          <div class="tag-group">
-            <span>Agente de voz</span>
-            <span>WhatsApp</span>
-            <span>Doctoralia</span>
-            <span>Sin conexión directa con agenda</span>
-          </div>
-        </div>
       </aside>
 
       <main class="story-main">
@@ -129,10 +105,10 @@
             </div>
             <div class="board-cluster">
               <span class="board-tag board-tag-good" data-flow-group="laboral">Recepción como primera capa</span>
-              <span class="board-tag board-tag-good" data-flow-group="transfer">Transferencia a humano si hace falta</span>
+              <span class="board-tag board-tag-good" data-flow-group="transfer">Transferencia a recepción si procede</span>
               <span class="board-tag board-tag-good" data-flow-group="offhours">Cobertura fuera de horario</span>
               <span class="board-tag board-tag-good" data-flow-group="offhours">WhatsApp para nuevas citas</span>
-              <span class="board-tag board-tag-risk" data-flow-group="cancel">Cancelación tratada con tacto</span>
+              <span class="board-tag board-tag-risk" data-flow-group="cancel">Gestión cuidadosa de cancelaciones</span>
             </div>
 
             <div class="decision-tree">
@@ -156,8 +132,8 @@
                 <section class="tree-branch">
                   <span class="tree-branch-chip" data-flow-group="laboral transfer">Sí, horario laboral</span>
                   <article class="tree-node tree-node-decision" data-flow-group="laboral transfer">
-                    <h4>¿Recepción puede coger la llamada?</h4>
-                    <p>Si está libre, atiende ella. Si está en llamada o con un paciente, entra la IA.</p>
+                    <h4>¿Recepción está disponible?</h4>
+                    <p>Si está disponible, atiende ella. Si está en llamada o con un paciente, entra la IA.</p>
                   </article>
 
                   <div class="tree-children-row">
@@ -166,14 +142,14 @@
                       <p>La atención humana sigue siendo la primera opción cuando hay disponibilidad.</p>
                     </article>
                     <article class="tree-node tree-node-ia" data-flow-group="laboral transfer">
-                      <h4>La IA coge la llamada</h4>
-                      <p>Absorbe la llamada si recepción está ocupada o ya está en otra llamada.</p>
+                      <h4>La IA atiende la llamada</h4>
+                      <p>Absorbe la llamada si recepción está ocupada o ya está atendiendo otra comunicación.</p>
                     </article>
                   </div>
 
                   <div class="tree-followup-row">
                     <article class="tree-node tree-node-good" data-flow-group="transfer">
-                      <h4>Si el usuario pide hablar con un humano</h4>
+                      <h4>Si el usuario solicita atención humana</h4>
                       <p>La IA transfiere la llamada a recepción para mantener continuidad real.</p>
                     </article>
                     <article class="tree-node tree-node-good" data-flow-group="laboral">
@@ -205,7 +181,7 @@
                     </article>
                     <article class="tree-node tree-node-accent" data-flow-group="offhours cancel">
                       <h4>Cancelación</h4>
-                      <p>Responde con tacto, intenta salvar la cita y, si persiste, deja la gestión preparada.</p>
+                      <p>Responde con tacto, intenta conservar la continuidad asistencial y, si persiste, deja la gestión preparada.</p>
                     </article>
                     <article class="tree-node tree-node-good tree-node-span-two" data-flow-group="offhours">
                       <h4>Notas internas al equipo</h4>
@@ -636,7 +612,7 @@
               <h3>Cancelación con objeción sutil</h3>
               <ul>
                 <li>La IA explora el motivo con tono cercano, sin presión artificial.</li>
-                <li>Intenta salvar la cita si hay una objeción blanda o recuperable.</li>
+                <li>Intenta conservar la cita si existe margen razonable para reprogramar o revisar la necesidad.</li>
                 <li>Si la cancelación sigue adelante, deja la nota interna lista para seguimiento humano.</li>
               </ul>
             </article>
@@ -647,24 +623,24 @@
               <p class="mini-label">Ejemplo 1</p>
               <h3>“Ahora mismo no me va bien”</h3>
               <p>
-                “Si te resulta mejor, puedo dejar indicado que prefieres otro hueco y que el
-                equipo te proponga una alternativa. Así no pierdes el seguimiento.”
+                “Si te parece, puedo dejar indicada una preferencia de horario para que el
+                equipo te proponga otra alternativa y mantener la continuidad.”
               </p>
             </article>
             <article class="objection-card">
               <p class="mini-label">Ejemplo 2</p>
               <h3>“Creo que ya no me hace falta”</h3>
               <p>
-                “Entiendo. Si te parece, puedo dejar constancia para que el equipo valore si
-                conviene mantener una revisión más adelante y no perder continuidad.”
+                “Entiendo. Si lo deseas, puedo dejarlo indicado para que el equipo valore contigo
+                si conviene mantener una revisión o seguimiento más adelante.”
               </p>
             </article>
             <article class="objection-card">
               <p class="mini-label">Ejemplo 3</p>
               <h3>“Prefiero pensarlo”</h3>
               <p>
-                “Sin problema. Puedo indicar que prefieres que os contacten para revisar opciones
-                antes de cancelar del todo, por si hubiera una solución más cómoda.”
+                “De acuerdo. Puedo dejar solicitado que revisen contigo alternativas antes de
+                cerrar la cancelación definitivamente, por si hubiera una opción más adecuada.”
               </p>
             </article>
           </div>
@@ -673,7 +649,7 @@
             <p class="mini-label">Clave de confianza</p>
             <p>
               La IA no finge acceso a agenda ni toma decisiones clínicas. Escucha, ordena,
-              intenta salvar valor cuando tiene sentido y deja al equipo la decisión final.
+              plantea alternativas cuando tiene sentido y deja al equipo la decisión final.
             </p>
           </div>
         </section>
@@ -828,11 +804,12 @@
         <section id="roi" class="panel roi-panel">
           <div class="section-heading">
             <p class="eyebrow">12. Inversión y retorno</p>
-            <h2>Bloque editable para presentar inversión, impacto mensual y plazo de recuperación.</h2>
+            <h2>La inversión combina implantación, servicio mensual y un coste variable por uso de voz.</h2>
             <p class="section-copy">
-              Este simulador está pensado para que puedas ajustar la propuesta con las
-              hipótesis reales de Dunia Institut Dental. No incluye cifras cerradas
-              inventadas: el cálculo se activa con tus variables.
+              Este modelo permite ajustar la propuesta con hipótesis reales de Dunia Institut
+              Dental. Además de la implantación y la cuota mensual, el uso de la atención de voz
+              incorpora un coste variable aproximado de entre 0,09 €/min y 0,12 €/min, repercutido
+              directamente a Dunia bajo un esquema de pago por uso.
             </p>
           </div>
 
@@ -840,27 +817,35 @@
             <form class="roi-form" id="roiForm">
               <div class="pricing-highlight">
                 <label class="price-card">
-                  <span class="mini-label">Precio editable</span>
+                  <span class="mini-label">Partida 1</span>
                   <strong>Inversión inicial</strong>
                   <input
                     type="number"
                     min="0"
                     step="0.01"
                     name="setupCost"
-                    placeholder="Tu importe aquí"
+                    placeholder="Importe"
                   />
+                  <small>Configuración, diseño conversacional y puesta en marcha.</small>
                 </label>
                 <label class="price-card">
-                  <span class="mini-label">Precio editable</span>
-                  <strong>Cuota mensual</strong>
+                  <span class="mini-label">Partida 2</span>
+                  <strong>Cuota mensual fija</strong>
                   <input
                     type="number"
                     min="0"
                     step="0.01"
                     name="monthlyCost"
-                    placeholder="Tu importe aquí"
+                    placeholder="Importe"
                   />
+                  <small>Seguimiento, mantenimiento y operación mensual del servicio.</small>
                 </label>
+                <article class="price-card price-card-info">
+                  <span class="mini-label">Partida 3</span>
+                  <strong>Uso de voz</strong>
+                  <p>Pago por uso repercutido directamente a Dunia.</p>
+                  <small>Referencia estimada: 0,09 €/min a 0,12 €/min.</small>
+                </article>
               </div>
 
               <div class="form-group">
@@ -894,6 +879,18 @@
                   <input type="number" min="0" step="0.01" name="hourlyCost" placeholder="Introduce dato" />
                 </label>
               </div>
+
+              <div class="form-group">
+                <p class="mini-label">Hipótesis de uso de voz</p>
+                <label>
+                  <span>Minutos estimados de atención de voz al mes</span>
+                  <input type="number" min="0" step="1" name="voiceMinutes" placeholder="Introduce dato" />
+                </label>
+                <label>
+                  <span>Coste medio por minuto de voz</span>
+                  <input type="number" min="0" step="0.01" name="voiceCostPerMinute" placeholder="0,09 - 0,12" />
+                </label>
+              </div>
             </form>
 
             <div class="roi-results">
@@ -901,7 +898,7 @@
                 <p class="mini-label">Resumen visual</p>
                 <h3>Potencial de recuperación</h3>
                 <p id="roiNarrative">
-                  Introduce tus hipótesis para visualizar el impacto potencial del sistema.
+                  Ajusta las hipótesis para visualizar el impacto potencial del sistema.
                 </p>
               </div>
 
@@ -919,7 +916,15 @@
                   <h3 id="operationalSavings">-</h3>
                 </article>
                 <article class="kpi-card">
-                  <p class="mini-label">Retorno neto mensual</p>
+                  <p class="mini-label">Coste variable de voz</p>
+                  <h3 id="voiceUsageCost">-</h3>
+                </article>
+                <article class="kpi-card">
+                  <p class="mini-label">Coste mensual total</p>
+                  <h3 id="totalMonthlyCost">-</h3>
+                </article>
+                <article class="kpi-card">
+                  <p class="mini-label">Retorno neto mensual estimado</p>
                   <h3 id="netImpact">-</h3>
                 </article>
               </div>
@@ -936,9 +941,14 @@
                   <strong id="barOperationalSavingsLabel">-</strong>
                 </div>
                 <div class="bar-row">
-                  <span>Coste mensual</span>
-                  <div class="bar-track"><div class="bar-fill bar-fill-cost" id="barMonthlyCost"></div></div>
-                  <strong id="barMonthlyCostLabel">-</strong>
+                  <span>Uso de voz estimado</span>
+                  <div class="bar-track"><div class="bar-fill bar-fill-cost" id="barVoiceUsageCost"></div></div>
+                  <strong id="barVoiceUsageCostLabel">-</strong>
+                </div>
+                <div class="bar-row">
+                  <span>Coste mensual total</span>
+                  <div class="bar-track"><div class="bar-fill bar-fill-cost" id="barTotalMonthlyCost"></div></div>
+                  <strong id="barTotalMonthlyCostLabel">-</strong>
                 </div>
               </div>
 
@@ -953,15 +963,15 @@
                 <article class="formula-card">
                   <p class="mini-label">Plazo estimado de recuperación</p>
                   <p id="paybackCopy">
-                    Cuando añadas inversión inicial y retorno neto mensual, aquí verás el
+                    Al incorporar inversión inicial y retorno neto mensual, aquí se mostrará el
                     plazo estimado de recuperación.
                   </p>
                 </article>
                 <article class="formula-card">
                   <p class="mini-label">Punto de equilibrio</p>
                   <p id="breakEvenCopy">
-                    El simulador mostrará cuántas oportunidades recuperadas al mes bastan
-                    para cubrir la cuota mensual.
+                    El modelo mostrará cuántas oportunidades recuperadas al mes bastan
+                    para cubrir el coste mensual total.
                   </p>
                 </article>
               </div>

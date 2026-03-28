@@ -12,7 +12,7 @@ const flowInsightData = {
   transfer: {
     label: "Transferencia a humano",
     text:
-      "Si la llamada que ha cogido la IA necesita intervención humana, el sistema la pasa a recepción en vez de obligar al paciente a volver a llamar.",
+      "Si la llamada atendida por la IA necesita intervención humana, el sistema la transfiere a recepción en vez de obligar al paciente a volver a llamar.",
   },
   offhours: {
     label: "Fuera de horario",
@@ -22,7 +22,7 @@ const flowInsightData = {
   cancel: {
     label: "Cancelación",
     text:
-      "Ante intención de cancelar, la IA no empuja ni improvisa: explora la objeción con tacto, intenta salvar la cita si tiene sentido y, si no, deja nota interna ordenada.",
+      "Ante intención de cancelar, la IA no empuja ni improvisa: explora la objeción con tacto, plantea alternativas razonables y, si no procede mantener la cita, deja nota interna ordenada.",
   },
 };
 
@@ -33,11 +33,11 @@ const scenarioData = {
     today:
       "La llamada llega mientras recepción está atendiendo un paciente, caja, documentación o coordinación interna. El teléfono compite contra tareas que no se pueden interrumpir con calidad.",
     future:
-      "La IA coge la llamada mientras recepción sigue con la tarea presencial. Si el usuario pide hablar con una persona, la llamada se transfiere a recepción; si no, la IA resuelve o encamina la gestión.",
+      "La IA atiende la llamada mientras recepción continúa con la tarea presencial. Si el usuario solicita atención humana, la llamada se transfiere a recepción; si no, la IA resuelve o encamina la gestión.",
     clinicWins: [
       "Menos interrupciones en momentos sensibles de la jornada.",
       "Más llamadas absorbidas sin tensión adicional para recepción.",
-      "Un circuito uniforme cuando el equipo no puede coger el teléfono al instante.",
+      "Un circuito uniforme cuando el equipo no puede atender el teléfono al instante.",
     ],
     patientWins: [
       "Respuesta inmediata en vez de espera o silencio.",
@@ -51,7 +51,7 @@ const scenarioData = {
     today:
       "La línea entra mientras recepción está ya al teléfono. La clínica depende de que esa persona termine, detecte la llamada y pueda recuperar el contexto después.",
     future:
-      "La IA absorbe la segunda llamada, clasifica la necesidad y mantiene la continuidad. Si la persona necesita trato humano, la llamada se pasa a recepción cuando corresponde.",
+      "La IA absorbe la segunda llamada, clasifica la necesidad y mantiene la continuidad. Si la persona necesita atención humana, la llamada se deriva a recepción cuando corresponde.",
     clinicWins: [
       "Menos llamadas perdidas por solapamiento.",
       "Mayor capacidad de respuesta en horas de presión.",
@@ -180,22 +180,28 @@ function updateRoi() {
   const hourlyCost = getValue(formData, "hourlyCost");
   const monthlyCost = getValue(formData, "monthlyCost");
   const setupCost = getValue(formData, "setupCost");
+  const voiceMinutes = getValue(formData, "voiceMinutes");
+  const voiceCostPerMinute = getValue(formData, "voiceCostPerMinute");
 
   const recoveredAppointments = missedCalls * appointmentIntentPct * recoveryPct;
   const recoveredRevenue = recoveredAppointments * averageValue;
   const operationalSavings = hoursSaved * hourlyCost;
+  const voiceUsageCost = voiceMinutes * voiceCostPerMinute;
+  const totalMonthlyCost = monthlyCost + voiceUsageCost;
   const grossImpact = recoveredRevenue + operationalSavings;
-  const netImpact = grossImpact - monthlyCost;
+  const netImpact = grossImpact - totalMonthlyCost;
   const paybackMonths =
     setupCost > 0 && netImpact > 0 ? setupCost / netImpact : 0;
   const breakEvenAppointments =
     averageValue > 0
-      ? Math.max((monthlyCost - operationalSavings) / averageValue, 0)
+      ? Math.max((totalMonthlyCost - operationalSavings) / averageValue, 0)
       : 0;
 
   const recoveredAppointmentsEl = document.getElementById("recoveredAppointments");
   const recoveredRevenueEl = document.getElementById("recoveredRevenue");
   const operationalSavingsEl = document.getElementById("operationalSavings");
+  const voiceUsageCostEl = document.getElementById("voiceUsageCost");
+  const totalMonthlyCostEl = document.getElementById("totalMonthlyCost");
   const netImpactEl = document.getElementById("netImpact");
   const roiNarrativeEl = document.getElementById("roiNarrative");
   const paybackCopyEl = document.getElementById("paybackCopy");
@@ -210,6 +216,12 @@ function updateRoi() {
   if (operationalSavingsEl) {
     operationalSavingsEl.textContent = formatCurrency(operationalSavings);
   }
+  if (voiceUsageCostEl) {
+    voiceUsageCostEl.textContent = formatCurrency(voiceUsageCost);
+  }
+  if (totalMonthlyCostEl) {
+    totalMonthlyCostEl.textContent = formatCurrency(totalMonthlyCost);
+  }
   if (netImpactEl) {
     netImpactEl.textContent =
       netImpact > 0 ? currencyFormatter.format(netImpact) : netImpact < 0 ? `-${currencyFormatter.format(Math.abs(netImpact))}` : "-";
@@ -217,22 +229,24 @@ function updateRoi() {
 
   if (roiNarrativeEl) {
     if (grossImpact > 0) {
-      roiNarrativeEl.textContent = `Con estas hipótesis, el sistema podría recuperar ${decimalFormatter.format(
+      roiNarrativeEl.textContent = `Con las hipótesis seleccionadas, el sistema podría recuperar ${decimalFormatter.format(
         recoveredAppointments,
       )} oportunidades al mes, generar ${currencyFormatter.format(
         recoveredRevenue,
       )} de ingreso potencial y aportar ${currencyFormatter.format(
         operationalSavings,
-      )} en eficiencia operativa.`;
+      )} en eficiencia operativa, frente a un coste mensual total estimado de ${currencyFormatter.format(
+        totalMonthlyCost,
+      )}.`;
     } else {
       roiNarrativeEl.textContent =
-        "Introduce tus hipótesis para visualizar el impacto potencial del sistema.";
+        "Ajusta las hipótesis para visualizar el impacto potencial del sistema.";
     }
   }
 
   if (paybackCopyEl) {
     if (setupCost > 0 && netImpact > 0) {
-      paybackCopyEl.textContent = `Con estas cifras, la inversión inicial se recuperaría en aproximadamente ${decimalFormatter.format(
+      paybackCopyEl.textContent = `Con estas hipótesis, la inversión inicial se recuperaría en aproximadamente ${decimalFormatter.format(
         paybackMonths,
       )} meses.`;
     } else if (setupCost > 0) {
@@ -240,25 +254,26 @@ function updateRoi() {
         "Para calcular recuperación de implantación, el retorno neto mensual debe ser positivo.";
     } else {
       paybackCopyEl.textContent =
-        "Cuando añadas inversión inicial y retorno neto mensual, aquí verás el plazo estimado de recuperación.";
+        "Al incorporar inversión inicial y retorno neto mensual, aquí se mostrará el plazo estimado de recuperación.";
     }
   }
 
   if (breakEvenCopyEl) {
-    if (averageValue > 0 && monthlyCost > 0) {
+    if (averageValue > 0 && totalMonthlyCost > 0) {
       breakEvenCopyEl.textContent = `Con estas hipótesis, bastaría recuperar aproximadamente ${decimalFormatter.format(
         breakEvenAppointments,
-      )} oportunidades al mes para cubrir la cuota mensual.`;
+      )} oportunidades al mes para cubrir el coste mensual total.`;
     } else {
       breakEvenCopyEl.textContent =
-        "El simulador mostrará cuántas oportunidades recuperadas al mes bastan para cubrir la cuota mensual.";
+        "El modelo mostrará cuántas oportunidades recuperadas al mes bastan para cubrir el coste mensual total.";
     }
   }
 
-  const maxBarValue = Math.max(recoveredRevenue, operationalSavings, monthlyCost, 1);
+  const maxBarValue = Math.max(recoveredRevenue, operationalSavings, voiceUsageCost, totalMonthlyCost, 1);
   setBar("barRecoveredRevenue", "barRecoveredRevenueLabel", recoveredRevenue, maxBarValue, currencyFormatter.format);
   setBar("barOperationalSavings", "barOperationalSavingsLabel", operationalSavings, maxBarValue, currencyFormatter.format);
-  setBar("barMonthlyCost", "barMonthlyCostLabel", monthlyCost, maxBarValue, currencyFormatter.format);
+  setBar("barVoiceUsageCost", "barVoiceUsageCostLabel", voiceUsageCost, maxBarValue, currencyFormatter.format);
+  setBar("barTotalMonthlyCost", "barTotalMonthlyCostLabel", totalMonthlyCost, maxBarValue, currencyFormatter.format);
 }
 
 function setupNavObserver() {
