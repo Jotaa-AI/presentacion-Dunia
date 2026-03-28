@@ -366,6 +366,10 @@ button {
   gap: 18px;
 }
 
+.decision-tree-board {
+  background: linear-gradient(180deg, rgba(238, 246, 237, 0.96), rgba(255, 255, 255, 0.92));
+}
+
 .flow-board {
   position: relative;
   display: grid;
@@ -413,6 +417,205 @@ button {
 .flow-board-head h3 {
   margin-top: 8px;
   font-size: 1.55rem;
+}
+
+.decision-tree {
+  display: grid;
+  gap: 18px;
+}
+
+.tree-level {
+  display: flex;
+  justify-content: center;
+}
+
+.tree-connector-vertical {
+  justify-self: center;
+  width: 2px;
+  height: 34px;
+  background: rgba(39, 60, 58, 0.16);
+}
+
+.tree-split-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  padding-top: 34px;
+}
+
+.tree-split-grid::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 25%;
+  right: 25%;
+  height: 2px;
+  background: rgba(39, 60, 58, 0.16);
+}
+
+.tree-split-grid::after {
+  content: "";
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  width: 2px;
+  height: 34px;
+  transform: translateX(-50%);
+  background: rgba(39, 60, 58, 0.16);
+}
+
+.tree-branch {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  padding-top: 18px;
+}
+
+.tree-branch::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 18px;
+  transform: translateX(-50%);
+  background: rgba(39, 60, 58, 0.16);
+}
+
+.tree-branch-chip {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(39, 60, 58, 0.08);
+  box-shadow: 0 10px 18px rgba(39, 60, 58, 0.08);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  transition: opacity 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.tree-node {
+  position: relative;
+  padding: 18px 18px 16px 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(39, 60, 58, 0.08);
+  box-shadow: 0 16px 28px rgba(39, 60, 58, 0.08);
+  transition: opacity 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.tree-node::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 22px;
+  width: 56px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(86, 196, 119, 0.16);
+}
+
+.tree-node h4 {
+  margin: 0 0 8px;
+  font-size: 1.08rem;
+}
+
+.tree-node p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.tree-node-root {
+  width: min(440px, 100%);
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 249, 243, 0.94));
+}
+
+.tree-node-decision {
+  background: linear-gradient(180deg, rgba(244, 237, 227, 0.95), rgba(255, 255, 255, 0.94));
+}
+
+.tree-node-human {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 247, 0.95));
+}
+
+.tree-node-ia,
+.tree-node-good {
+  background: linear-gradient(180deg, rgba(231, 243, 228, 0.96), rgba(255, 255, 255, 0.94));
+}
+
+.tree-node-accent {
+  background: linear-gradient(180deg, rgba(253, 247, 241, 0.96), rgba(255, 255, 255, 0.94));
+}
+
+.tree-children-row,
+.tree-followup-row,
+.tree-children-grid {
+  position: relative;
+  display: grid;
+  gap: 16px;
+}
+
+.tree-children-row,
+.tree-followup-row,
+.tree-children-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tree-children-row,
+.tree-children-grid {
+  padding-top: 26px;
+}
+
+.tree-children-row::before,
+.tree-children-grid::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 25%;
+  right: 25%;
+  height: 2px;
+  background: rgba(39, 60, 58, 0.14);
+}
+
+.tree-children-row > .tree-node::after,
+.tree-children-grid > .tree-node::after {
+  content: "";
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  width: 2px;
+  height: 26px;
+  transform: translateX(-50%);
+  background: rgba(39, 60, 58, 0.14);
+}
+
+.tree-followup-row {
+  padding-top: 6px;
+}
+
+.tree-node-span-two {
+  grid-column: 1 / -1;
+}
+
+.tree-node.is-highlighted,
+.tree-branch-chip.is-highlighted,
+.board-tag.is-highlighted {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(39, 60, 58, 0.12);
+}
+
+.tree-node.is-muted,
+.tree-branch-chip.is-muted,
+.board-tag.is-muted {
+  opacity: 0.34;
+  box-shadow: none;
 }
 
 .flow-board-head,
@@ -910,6 +1113,30 @@ button {
   background: linear-gradient(180deg, rgba(200, 223, 198, 0.9), rgba(255, 255, 255, 0.92));
 }
 
+.objection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.objection-card {
+  padding: 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(244, 249, 243, 0.92));
+  border: 1px solid rgba(17, 50, 58, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.objection-card h3 {
+  margin-top: 10px;
+  font-size: 1.24rem;
+}
+
+.objection-card p:last-child {
+  color: var(--muted);
+}
+
 .benefit-card ul,
 .route-card ul,
 .capability-card ul,
@@ -1243,7 +1470,8 @@ button {
   .hero-panel,
   .journey-layout,
   .roi-layout,
-  .closing-panel {
+  .closing-panel,
+  .tree-split-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1253,6 +1481,11 @@ button {
 
   .pricing-highlight {
     grid-template-columns: 1fr;
+  }
+
+  .tree-split-grid::before,
+  .tree-split-grid::after {
+    display: none;
   }
 }
 
@@ -1274,11 +1507,26 @@ button {
   .scenario-benefits,
   .capability-grid,
   .route-grid,
+  .objection-grid,
   .value-grid,
   .patient-grid,
   .architecture,
   .roi-footnotes {
     grid-template-columns: 1fr;
+  }
+
+  .tree-children-row,
+  .tree-followup-row,
+  .tree-children-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tree-branch::before,
+  .tree-children-row::before,
+  .tree-children-grid::before,
+  .tree-children-row > .tree-node::after,
+  .tree-children-grid > .tree-node::after {
+    display: none;
   }
 
   .process-step::before,
@@ -1309,6 +1557,9 @@ button {
 
   .flow-step-card,
   .flow-step-card.is-highlighted,
+  .tree-node,
+  .tree-node.is-highlighted,
+  .tree-branch-chip,
   .board-tag,
   .evidence-card {
     transform: none;

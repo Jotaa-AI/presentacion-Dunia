@@ -42,7 +42,7 @@
         </div>
 
         <nav class="story-nav">
-          <a href="#apertura" class="nav-link">Mapa inicial</a>
+          <a href="#apertura" class="nav-link">Mapa operativo</a>
           <a href="#coste-oculto" class="nav-link">Dolor actual</a>
           <a href="#evidencia" class="nav-link">Datos reales</a>
           <a href="#escenarios" class="nav-link">Cómo se resuelve</a>
@@ -81,75 +81,151 @@
       <main class="story-main">
         <section id="apertura" class="panel hero-panel">
           <div class="hero-intro">
-            <p class="eyebrow">Mapa inicial</p>
-            <h2>Hoy hay llamadas con intención real que se pierden por falta de continuidad.</h2>
+            <p class="eyebrow">Mapa operativo</p>
+            <h2>Este es el árbol de decisión que evita que una llamada útil se quede sin salida.</h2>
             <p class="lead">
-              El dolor no está en el teléfono. Está en que la llamada entra, no encuentra
-              respuesta útil y la oportunidad se enfría. La propuesta resuelve eso con un
-              flujo simple: respuesta inmediata, orientación clara y siguiente paso correcto.
+              La lógica propuesta es muy clara: en horario laboral, recepción sigue siendo
+              la primera opción; cuando no puede atender, entra la IA. Fuera de horario,
+              la IA mantiene la continuidad, resuelve dudas, encamina nuevas citas y deja
+              preparada la gestión cuando hace falta intervención humana.
             </p>
             <div class="hero-pills">
-              <span>Tablero de situación</span>
-              <span>Picos de llamadas</span>
-              <span>Recepción ocupada</span>
+              <span>Horario laboral</span>
+              <span>Recepción primero</span>
+              <span>Desvío a IA</span>
+              <span>Transferencia a humano</span>
               <span>Fuera de horario</span>
-              <span>Fuga de primeras visitas</span>
+              <span>WhatsApp + notas internas</span>
             </div>
             <div class="board-legend">
-              <span class="legend-chip legend-chip-risk">Punto de fuga</span>
-              <span class="legend-chip legend-chip-neutral">Interrupción</span>
-              <span class="legend-chip legend-chip-good">Paso resuelto</span>
+              <span class="legend-chip legend-chip-neutral">Nodo de decisión</span>
+              <span class="legend-chip legend-chip-good">Ruta resuelta</span>
+              <span class="legend-chip legend-chip-risk">Ruta sensible</span>
             </div>
           </div>
 
           <div class="map-toolbar" id="flowFocusToggle">
-            <button type="button" class="toggle-button is-active" data-flow-focus="leaks">
-              Puntos de fuga
+            <button type="button" class="toggle-button is-active" data-flow-focus="all">
+              Vista completa
             </button>
-            <button type="button" class="toggle-button" data-flow-focus="solution">
-              Proceso resuelto
+            <button type="button" class="toggle-button" data-flow-focus="laboral">
+              Horario laboral
+            </button>
+            <button type="button" class="toggle-button" data-flow-focus="transfer">
+              Transferencia a humano
+            </button>
+            <button type="button" class="toggle-button" data-flow-focus="offhours">
+              Fuera de horario
+            </button>
+            <button type="button" class="toggle-button" data-flow-focus="cancel">
+              Cancelación
             </button>
           </div>
 
-          <div class="hero-map-grid">
-            <article class="flow-board flow-board-risk">
-              <div class="flow-board-head">
-                <p class="mini-label">Situación actual</p>
-                <h3>Así se escapa hoy una posible cita</h3>
-              </div>
-              <div class="board-cluster">
-                <span class="board-tag board-tag-risk">Recepción ocupada</span>
-                <span class="board-tag board-tag-risk">Llamada simultánea</span>
-                <span class="board-tag board-tag-risk">Fuera de horario</span>
-              </div>
-              <div class="flow-map" id="currentFlowMap"></div>
-              <p class="flow-board-footer">
-                La llamada depende por completo de que una persona pueda cogerla en ese momento.
-              </p>
-            </article>
+          <article class="flow-board decision-tree-board" id="flowDecisionTree">
+            <div class="flow-board-head">
+              <p class="mini-label">Árbol de decisión</p>
+              <h3>Cómo se distribuye cada llamada según momento, carga y necesidad real</h3>
+            </div>
+            <div class="board-cluster">
+              <span class="board-tag board-tag-good" data-flow-group="laboral">Recepción como primera capa</span>
+              <span class="board-tag board-tag-good" data-flow-group="transfer">Transferencia a humano si hace falta</span>
+              <span class="board-tag board-tag-good" data-flow-group="offhours">Cobertura fuera de horario</span>
+              <span class="board-tag board-tag-good" data-flow-group="offhours">WhatsApp para nuevas citas</span>
+              <span class="board-tag board-tag-risk" data-flow-group="cancel">Cancelación tratada con tacto</span>
+            </div>
 
-            <article class="flow-board flow-board-good">
-              <div class="flow-board-head">
-                <p class="mini-label">Nuevo flujo</p>
-                <h3>Así se conserva y se guía la llamada</h3>
+            <div class="decision-tree">
+              <div class="tree-level">
+                <article class="tree-node tree-node-root" data-flow-group="all laboral transfer offhours cancel">
+                  <h4>Entra llamada</h4>
+                  <p>La llamada entra por el número habitual de la clínica.</p>
+                </article>
               </div>
-              <div class="board-cluster">
-                <span class="board-tag board-tag-good">Respuesta inmediata</span>
-                <span class="board-tag board-tag-good">WhatsApp + reserva</span>
-                <span class="board-tag board-tag-good">Seguimiento ordenado</span>
+
+              <div class="tree-connector tree-connector-vertical"></div>
+
+              <div class="tree-level">
+                <article class="tree-node tree-node-decision" data-flow-group="all laboral offhours">
+                  <h4>¿Es horario laboral?</h4>
+                  <p>El sistema decide si la primera capa debe ser recepción o la IA.</p>
+                </article>
               </div>
-              <div class="flow-map" id="futureFlowMap"></div>
-              <p class="flow-board-footer">
-                La llamada siempre cae en una acción útil, aunque recepción no pueda coger.
-              </p>
-            </article>
-          </div>
+
+              <div class="tree-split-grid">
+                <section class="tree-branch">
+                  <span class="tree-branch-chip" data-flow-group="laboral transfer">Sí, horario laboral</span>
+                  <article class="tree-node tree-node-decision" data-flow-group="laboral transfer">
+                    <h4>¿Recepción puede coger la llamada?</h4>
+                    <p>Si está libre, atiende ella. Si está en llamada o con un paciente, entra la IA.</p>
+                  </article>
+
+                  <div class="tree-children-row">
+                    <article class="tree-node tree-node-human" data-flow-group="laboral">
+                      <h4>Recepción atiende</h4>
+                      <p>La atención humana sigue siendo la primera opción cuando hay disponibilidad.</p>
+                    </article>
+                    <article class="tree-node tree-node-ia" data-flow-group="laboral transfer">
+                      <h4>La IA coge la llamada</h4>
+                      <p>Absorbe la llamada si recepción está ocupada o ya está en otra llamada.</p>
+                    </article>
+                  </div>
+
+                  <div class="tree-followup-row">
+                    <article class="tree-node tree-node-good" data-flow-group="transfer">
+                      <h4>Si el usuario pide hablar con un humano</h4>
+                      <p>La IA transfiere la llamada a recepción para mantener continuidad real.</p>
+                    </article>
+                    <article class="tree-node tree-node-good" data-flow-group="laboral">
+                      <h4>Si no necesita humano</h4>
+                      <p>La IA resuelve la duda o encamina la acción sin interrumpir el trabajo presencial.</p>
+                    </article>
+                  </div>
+                </section>
+
+                <section class="tree-branch">
+                  <span class="tree-branch-chip" data-flow-group="offhours cancel">No, fuera de horario</span>
+                  <article class="tree-node tree-node-ia" data-flow-group="offhours cancel">
+                    <h4>La IA atiende la llamada</h4>
+                    <p>Mantiene continuidad cuando la clínica está cerrada y evita que la intención se enfríe.</p>
+                  </article>
+
+                  <div class="tree-children-grid">
+                    <article class="tree-node tree-node-good" data-flow-group="offhours">
+                      <h4>Resuelve dudas no clínicas</h4>
+                      <p>Horario, ubicación, orientación general y preguntas frecuentes.</p>
+                    </article>
+                    <article class="tree-node tree-node-good" data-flow-group="offhours">
+                      <h4>Nueva cita</h4>
+                      <p>Envía por WhatsApp el enlace de reserva para que el paciente complete la cita.</p>
+                    </article>
+                    <article class="tree-node tree-node-good" data-flow-group="offhours">
+                      <h4>Cambio de hora</h4>
+                      <p>Recoge la solicitud y envía una nota interna al equipo para gestionar el cambio.</p>
+                    </article>
+                    <article class="tree-node tree-node-accent" data-flow-group="offhours cancel">
+                      <h4>Cancelación</h4>
+                      <p>Responde con tacto, intenta salvar la cita y, si persiste, deja la gestión preparada.</p>
+                    </article>
+                    <article class="tree-node tree-node-good tree-node-span-two" data-flow-group="offhours">
+                      <h4>Notas internas al equipo</h4>
+                      <p>Todo queda registrado para seguimiento humano sin depender de memoria ni rellamadas a ciegas.</p>
+                    </article>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <p class="flow-board-footer">
+              La lógica es simple: recepción sigue siendo la vía natural en horario laboral; la IA absorbe saturación, cubre fuera de horario y nunca deja la llamada sin siguiente paso.
+            </p>
+          </article>
 
           <div class="flow-insight-card">
-            <p class="mini-label" id="flowInsightLabel">Puntos de fuga</p>
+            <p class="mini-label" id="flowInsightLabel">Vista completa</p>
             <p id="flowInsightText">
-              Hoy la fuga aparece en tres momentos: cuando recepción no puede coger, cuando
-              ya hay otra llamada en curso y cuando alguien llama fuera de horario.
+              La llamada siempre encuentra una salida ordenada: humana si recepción está disponible,
+              asistida por IA cuando hay saturación y cubierta por IA fuera de horario.
             </p>
             <div class="hero-actions">
               <a href="#coste-oculto" class="button button-primary">Ver el dolor actual</a>
@@ -439,16 +515,18 @@
                 <li>Preguntas frecuentes no clínicas</li>
                 <li>Horario, ubicación, teléfono y orientación general</li>
                 <li>Detección de intención de nueva cita</li>
-                <li>Explicación del circuito de reserva online</li>
-                <li>Recogida estructurada de solicitudes simples</li>
+                <li>Envío de WhatsApp con enlace de reserva online</li>
+                <li>Transferencia a recepción si el usuario necesita humano</li>
+                <li>Recogida de cambios de hora y notas internas para el equipo</li>
               </ul>
             </article>
             <article class="capability-card capability-card-warn">
               <p class="mini-label">Prepara y escala</p>
               <ul>
-                <li>Cambios y cancelaciones que requieran intervención humana</li>
+                <li>Cambios y cancelaciones que deban cerrarse con intervención humana</li>
                 <li>Incidencias con contexto que debe revisar el equipo</li>
                 <li>Casos delicados o sensibles que deban priorizarse</li>
+                <li>Cancelaciones confirmadas tras una objeción sutil sin presión comercial</li>
                 <li>Mensajes para devolución con información ya ordenada</li>
               </ul>
             </article>
@@ -535,39 +613,67 @@
         <section id="cambios" class="panel">
           <div class="section-heading">
             <p class="eyebrow">6. Cambio o cancelación</p>
-            <h2>Si no puede cerrarse al instante, al menos queda bien encaminado.</h2>
+            <h2>Cuando quiere cambiar o cancelar, la llamada no se corta: se reconduce con criterio.</h2>
             <p class="section-copy">
-              El objetivo no es automatizar por automatizar. Es evitar que el paciente
-              quede en el aire y que el equipo tenga que empezar desde cero después.
+              La propuesta no promete automatizaciones falsas. Hace dos cosas muy bien:
+              recoger bien la solicitud de cambio y tratar con tacto la intención de cancelación
+              antes de dejarla preparada para el equipo.
             </p>
           </div>
 
           <div class="route-grid">
             <article class="route-card route-card-good">
               <p class="mini-label">Ruta 1</p>
-              <h3>Si puede resolverse dentro del circuito online</h3>
+              <h3>Cambio de hora</h3>
               <ul>
-                <li>El agente identifica la intención de cambio o cancelación.</li>
-                <li>Orienta al paciente por la vía que ya exista dentro del circuito de reserva.</li>
-                <li>Evita preguntas repetidas y reduce rellamadas por falta de instrucciones.</li>
+                <li>La IA identifica que el paciente quiere mover su cita.</li>
+                <li>Recoge el contexto necesario y envía una nota interna al equipo.</li>
+                <li>Recepción recibe la gestión preparada y no tiene que reconstruir la llamada desde cero.</li>
               </ul>
             </article>
             <article class="route-card">
               <p class="mini-label">Ruta 2</p>
-              <h3>Si no puede cerrarse automáticamente</h3>
+              <h3>Cancelación con objeción sutil</h3>
               <ul>
-                <li>Recoge nombre, motivo, franja deseada y dato de contacto.</li>
-                <li>Deja la solicitud preparada para el equipo humano.</li>
-                <li>El paciente no queda “en el aire” ni tiene que volver a empezar desde cero.</li>
+                <li>La IA explora el motivo con tono cercano, sin presión artificial.</li>
+                <li>Intenta salvar la cita si hay una objeción blanda o recuperable.</li>
+                <li>Si la cancelación sigue adelante, deja la nota interna lista para seguimiento humano.</li>
               </ul>
+            </article>
+          </div>
+
+          <div class="objection-grid">
+            <article class="objection-card">
+              <p class="mini-label">Ejemplo 1</p>
+              <h3>“Ahora mismo no me va bien”</h3>
+              <p>
+                “Si te resulta mejor, puedo dejar indicado que prefieres otro hueco y que el
+                equipo te proponga una alternativa. Así no pierdes el seguimiento.”
+              </p>
+            </article>
+            <article class="objection-card">
+              <p class="mini-label">Ejemplo 2</p>
+              <h3>“Creo que ya no me hace falta”</h3>
+              <p>
+                “Entiendo. Si te parece, puedo dejar constancia para que el equipo valore si
+                conviene mantener una revisión más adelante y no perder continuidad.”
+              </p>
+            </article>
+            <article class="objection-card">
+              <p class="mini-label">Ejemplo 3</p>
+              <h3>“Prefiero pensarlo”</h3>
+              <p>
+                “Sin problema. Puedo indicar que prefieres que os contacten para revisar opciones
+                antes de cancelar del todo, por si hubiera una solución más cómoda.”
+              </p>
             </article>
           </div>
 
           <div class="honesty-banner">
             <p class="mini-label">Clave de confianza</p>
             <p>
-              La IA no finge acceso a agenda ni toma decisiones clínicas. Ordena la
-              gestión, reduce fricción y mejora la continuidad del servicio.
+              La IA no finge acceso a agenda ni toma decisiones clínicas. Escucha, ordena,
+              intenta salvar valor cuando tiene sentido y deja al equipo la decisión final.
             </p>
           </div>
         </section>

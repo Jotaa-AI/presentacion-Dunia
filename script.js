@@ -1,80 +1,28 @@
-const flowMapData = {
-  current: [
-    {
-      title: "Entra la llamada",
-      badge: "Inicio",
-      tone: "neutral",
-      copy: "El paciente llama con una intención real: pedir cita, cambiarla o resolver una duda simple.",
-    },
-    {
-      title: "Recepción está ocupada",
-      badge: "Fuga",
-      tone: "risk",
-      copy: "Está con un paciente, en otra llamada o resolviendo una tarea que no puede interrumpir bien.",
-    },
-    {
-      title: "No hay respuesta útil",
-      badge: "Fuga",
-      tone: "risk",
-      copy: "La llamada espera, se corta o queda para más tarde sin un circuito claro.",
-    },
-    {
-      title: "El paciente decide si insiste",
-      badge: "Riesgo",
-      tone: "risk",
-      copy: "Algunas personas vuelven a llamar; otras comparan o lo dejan para otro momento.",
-    },
-    {
-      title: "La oportunidad se enfría",
-      badge: "Pérdida",
-      tone: "risk",
-      copy: "Se pierde una posible cita y recepción gana trabajo reactivo en lugar de orden.",
-    },
-  ],
-  future: [
-    {
-      title: "Entra la llamada",
-      badge: "Inicio",
-      tone: "neutral",
-      copy: "La llamada sigue entrando por el mismo número y en los mismos momentos de presión.",
-    },
-    {
-      title: "Respuesta inmediata",
-      badge: "Resuelto",
-      tone: "good",
-      copy: "La llamada encuentra atención desde el primer segundo, incluso si recepción no puede coger.",
-    },
-    {
-      title: "Se entiende el motivo",
-      badge: "Resuelto",
-      tone: "good",
-      copy: "Se detecta si la persona quiere reservar, cambiar, cancelar o simplemente orientarse.",
-    },
-    {
-      title: "Se guía la acción",
-      badge: "Resuelto",
-      tone: "good",
-      copy: "Nueva cita por WhatsApp y reserva online; cambio o cancelación bien encaminados.",
-    },
-    {
-      title: "La clínica conserva la oportunidad",
-      badge: "Valor",
-      tone: "good",
-      copy: "La llamada deja un siguiente paso útil en vez de convertirse en una fuga o una interrupción.",
-    },
-  ],
-};
-
 const flowInsightData = {
-  leaks: {
-    label: "Puntos de fuga",
+  all: {
+    label: "Vista completa",
     text:
-      "Hoy la fuga aparece en tres momentos: cuando recepción no puede coger, cuando ya hay otra llamada en curso y cuando alguien llama fuera de horario.",
+      "La llamada siempre encuentra una salida ordenada: humana si recepción está disponible, asistida por IA cuando hay saturación y cubierta por IA fuera de horario.",
   },
-  solution: {
-    label: "Proceso resuelto",
+  laboral: {
+    label: "Horario laboral",
     text:
-      "La solución no complica el proceso: responde, entiende el motivo y lleva la llamada hacia una acción clara en lugar de dejarla caer.",
+      "Durante horario laboral, recepción sigue siendo la primera opción. La IA entra solo cuando la clínica está ocupada y evita que una llamada simultánea se convierta en fuga.",
+  },
+  transfer: {
+    label: "Transferencia a humano",
+    text:
+      "Si la llamada que ha cogido la IA necesita intervención humana, el sistema la pasa a recepción en vez de obligar al paciente a volver a llamar.",
+  },
+  offhours: {
+    label: "Fuera de horario",
+    text:
+      "Fuera de horario, la IA mantiene la continuidad: resuelve dudas, activa nuevas citas por WhatsApp y deja preparadas las gestiones que requieren revisión humana.",
+  },
+  cancel: {
+    label: "Cancelación",
+    text:
+      "Ante intención de cancelar, la IA no empuja ni improvisa: explora la objeción con tacto, intenta salvar la cita si tiene sentido y, si no, deja nota interna ordenada.",
   },
 };
 
@@ -85,15 +33,15 @@ const scenarioData = {
     today:
       "La llamada llega mientras recepción está atendiendo un paciente, caja, documentación o coordinación interna. El teléfono compite contra tareas que no se pueden interrumpir con calidad.",
     future:
-      "El agente responde al instante, atiende la duda frecuente o canaliza la intención. Si es una nueva cita, activa el envío por WhatsApp. Si requiere seguimiento humano, deja la solicitud preparada.",
+      "La IA coge la llamada mientras recepción sigue con la tarea presencial. Si el usuario pide hablar con una persona, la llamada se transfiere a recepción; si no, la IA resuelve o encamina la gestión.",
     clinicWins: [
       "Menos interrupciones en momentos sensibles de la jornada.",
       "Más llamadas absorbidas sin tensión adicional para recepción.",
-      "Un circuito uniforme cuando el equipo no puede coger el teléfono.",
+      "Un circuito uniforme cuando el equipo no puede coger el teléfono al instante.",
     ],
     patientWins: [
       "Respuesta inmediata en vez de espera o silencio.",
-      "Siguiente paso claro sin tener que volver a llamar a ciegas.",
+      "Posibilidad real de pasar con una persona si lo necesita.",
       "Percepción de clínica organizada y disponible.",
     ],
   },
@@ -103,7 +51,7 @@ const scenarioData = {
     today:
       "La línea entra mientras recepción está ya al teléfono. La clínica depende de que esa persona termine, detecte la llamada y pueda recuperar el contexto después.",
     future:
-      "El agente absorbe la segunda llamada, clasifica la necesidad y evita que la simultaneidad se convierta en fuga. La clínica mantiene continuidad incluso en picos de demanda.",
+      "La IA absorbe la segunda llamada, clasifica la necesidad y mantiene la continuidad. Si la persona necesita trato humano, la llamada se pasa a recepción cuando corresponde.",
     clinicWins: [
       "Menos llamadas perdidas por solapamiento.",
       "Mayor capacidad de respuesta en horas de presión.",
@@ -121,7 +69,7 @@ const scenarioData = {
     today:
       "Fuera de horario no hay atención operativa. Si el paciente llama por una cita o una duda básica, la llamada no encuentra continuidad y depende de que vuelva a intentarlo.",
     future:
-      "El agente cubre la franja fuera de horario, responde preguntas no clínicas, detecta intención de nueva cita y puede activar el circuito WhatsApp + Doctoralia para no perder la oportunidad.",
+      "La IA cubre la franja fuera de horario, resuelve dudas no clínicas, envía WhatsApp para nuevas citas, prepara cambios de hora con nota interna y trata con tacto las cancelaciones antes de registrarlas.",
     clinicWins: [
       "Continuidad de atención sin ampliar turnos.",
       "Captura de oportunidades también fuera de horario.",
@@ -147,41 +95,24 @@ const decimalFormatter = new Intl.NumberFormat("es-ES", {
 });
 
 function renderFlowMaps(focusKey) {
-  const currentContainer = document.getElementById("currentFlowMap");
-  const futureContainer = document.getElementById("futureFlowMap");
   const insightLabel = document.getElementById("flowInsightLabel");
   const insightText = document.getElementById("flowInsightText");
   const insight = flowInsightData[focusKey];
+  const focusableElements = document.querySelectorAll("[data-flow-group]");
 
-  if (!currentContainer || !futureContainer || !insightLabel || !insightText || !insight) {
+  if (!insightLabel || !insightText || !insight || !focusableElements.length) {
     return;
   }
 
-  const renderMap = (steps, mapType) =>
-    steps
-      .map(
-        (step, index) => `
-          <article class="flow-step-card flow-step-card-${step.tone} ${
-            (focusKey === "leaks" && mapType === "current" && step.tone === "risk") ||
-            (focusKey === "solution" && mapType === "future" && step.tone === "good")
-              ? "is-highlighted"
-              : ""
-          }">
-            <div class="flow-step-head">
-              <span class="flow-step-index">0${index + 1}</span>
-              <span class="flow-step-badge flow-step-badge-${step.tone}">${step.badge}</span>
-            </div>
-            <h4>${step.title}</h4>
-            <p>${step.copy}</p>
-          </article>
-        `,
-      )
-      .join("");
-
-  currentContainer.innerHTML = renderMap(flowMapData.current, "current");
-  futureContainer.innerHTML = renderMap(flowMapData.future, "future");
   insightLabel.textContent = insight.label;
   insightText.textContent = insight.text;
+
+  focusableElements.forEach((element) => {
+    const groups = element.dataset.flowGroup.split(" ");
+    const matches = focusKey === "all" || groups.includes(focusKey);
+    element.classList.toggle("is-highlighted", matches);
+    element.classList.toggle("is-muted", focusKey !== "all" && !matches);
+  });
 
   document.querySelectorAll("[data-flow-focus]").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.flowFocus === focusKey);
@@ -358,7 +289,7 @@ function setupNavObserver() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderFlowMaps("leaks");
+  renderFlowMaps("all");
   renderScenario("a");
   updateRoi();
   setupNavObserver();
