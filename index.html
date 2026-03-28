@@ -286,21 +286,61 @@
               <div class="impact-ring"></div>
               <h3>Primera visita que no entra</h3>
               <p>La persona quería avanzar, pero la llamada no encontró una salida útil.</p>
+              <div class="impact-example">
+                <p class="mini-label">Ejemplo visual</p>
+                <div class="impact-flow">
+                  <span class="impact-step">Paciente nuevo llama</span>
+                  <span class="impact-arrow">→</span>
+                  <span class="impact-step">No obtiene respuesta</span>
+                  <span class="impact-arrow">→</span>
+                  <span class="impact-step impact-step-risk">Busca otra opción</span>
+                </div>
+              </div>
             </article>
             <article class="impact-card">
               <div class="impact-ring"></div>
               <h3>Recepción más interrumpida</h3>
               <p>El equipo mezcla presencial, gestión y teléfono dentro de la misma capacidad.</p>
+              <div class="impact-example">
+                <p class="mini-label">Ejemplo visual</p>
+                <div class="impact-flow">
+                  <span class="impact-step">Paciente en mostrador</span>
+                  <span class="impact-arrow">→</span>
+                  <span class="impact-step">Suena el teléfono</span>
+                  <span class="impact-arrow">→</span>
+                  <span class="impact-step impact-step-risk">Atención fragmentada</span>
+                </div>
+              </div>
             </article>
             <article class="impact-card">
               <div class="impact-ring"></div>
               <h3>Experiencia irregular</h3>
               <p>La calidad percibida cambia demasiado según el momento en que alguien llama.</p>
+              <div class="impact-example">
+                <p class="mini-label">Ejemplo visual</p>
+                <div class="impact-flow">
+                  <span class="impact-step">Llama a las 11:20</span>
+                  <span class="impact-arrow">→</span>
+                  <span class="impact-step">No entra nadie</span>
+                  <span class="impact-arrow">→</span>
+                  <span class="impact-step impact-step-risk">Percepción irregular</span>
+                </div>
+              </div>
             </article>
             <article class="impact-card">
               <div class="impact-ring"></div>
               <h3>Fuera de horario sin captura</h3>
               <p>La intención existe, pero la clínica no la recoge cuando más falta hace.</p>
+              <div class="impact-example">
+                <p class="mini-label">Ejemplo visual</p>
+                <div class="impact-flow">
+                  <span class="impact-step">Llama a las 20:45</span>
+                  <span class="impact-arrow">→</span>
+                  <span class="impact-step">Clínica cerrada</span>
+                  <span class="impact-arrow">→</span>
+                  <span class="impact-step impact-step-risk">Sin siguiente paso</span>
+                </div>
+              </div>
             </article>
           </div>
         </section>
@@ -622,6 +662,42 @@
               <p>El teléfono deja de “apagarse” cuando la clínica está ocupada o cerrada.</p>
             </article>
           </div>
+
+          <div class="bonus-panel">
+            <div class="bonus-copy">
+              <p class="mini-label">Bonus estratégico incluido</p>
+              <h3>Analizador comercial de llamadas de recepción</h3>
+              <p>
+                Además del nuevo flujo de atención, Dunia recibiría un sistema capaz de
+                analizar con inteligencia artificial las llamadas de recepción para detectar
+                patrones de mejora y optimizar cómo se atienden y cómo se convierten.
+              </p>
+            </div>
+
+            <div class="bonus-grid">
+              <article class="bonus-card">
+                <h4>Qué analiza</h4>
+                <p>
+                  Apertura de llamada, claridad del mensaje, gestión de objeciones,
+                  oportunidades no cerradas y momentos donde la conversación pierde fuerza.
+                </p>
+              </article>
+              <article class="bonus-card">
+                <h4>Qué aporta al equipo</h4>
+                <p>
+                  Aprendizajes accionables para mejorar guiones, seguimiento, tratamiento
+                  de primeras visitas y calidad comercial de recepción.
+                </p>
+              </article>
+              <article class="bonus-card">
+                <h4>Valor para Dunia</h4>
+                <p>
+                  No solo se atienden más llamadas: también se eleva el nivel de las
+                  conversaciones que ya realiza el equipo cada día.
+                </p>
+              </article>
+            </div>
+          </div>
         </section>
 
         <section id="impacto-paciente" class="panel">
@@ -739,9 +815,9 @@
             <h2>La inversión combina implantación, servicio mensual y un coste variable por uso de voz.</h2>
             <p class="section-copy">
               Este modelo permite ajustar la propuesta con hipótesis reales de Dunia Institut
-              Dental. Además de la implantación y la cuota mensual, el uso de la atención de voz
-              incorpora un coste variable aproximado de entre 0,09 €/min y 0,12 €/min, repercutido
-              directamente a Dunia bajo un esquema de pago por uso.
+              Dental. La propuesta parte de una implantación inicial de 1.500 €, un mantenimiento
+              mensual de 200 € y un coste de voz estimado de 0,10 €/min, repercutido directamente
+              a Dunia bajo un esquema de pago por uso.
             </p>
           </div>
 
@@ -751,32 +827,24 @@
                 <label class="price-card">
                   <span class="mini-label">Partida 1</span>
                   <strong>Inversión inicial</strong>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    name="setupCost"
-                    placeholder="Importe"
-                  />
+                  <span class="price-display">1.500 €</span>
+                  <input type="hidden" name="setupCost" value="1500" />
                   <small>Configuración, diseño conversacional y puesta en marcha.</small>
                 </label>
                 <label class="price-card">
                   <span class="mini-label">Partida 2</span>
-                  <strong>Cuota mensual fija</strong>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    name="monthlyCost"
-                    placeholder="Importe"
-                  />
+                  <strong>Mantenimiento mensual</strong>
+                  <span class="price-display">200 € / mes</span>
+                  <input type="hidden" name="monthlyCost" value="200" />
                   <small>Seguimiento, mantenimiento y operación mensual del servicio.</small>
                 </label>
                 <article class="price-card price-card-info">
                   <span class="mini-label">Partida 3</span>
                   <strong>Uso de voz</strong>
-                  <p>Pago por uso repercutido directamente a Dunia.</p>
-                  <small>Referencia estimada: 0,09 €/min a 0,12 €/min.</small>
+                  <span class="price-display">0,10 € / min</span>
+                  <p>Pago por uso de los minutos realmente atendidos por voz.</p>
+                  <input type="hidden" name="voiceCostPerMinute" value="0.10" />
+                  <small>Se repercute directamente a Dunia como coste variable mensual.</small>
                 </article>
               </div>
 
@@ -784,31 +852,19 @@
                 <p class="mini-label">Hipótesis de captación</p>
                 <label>
                   <span>Llamadas perdidas estimadas al mes</span>
-                  <input type="number" min="0" step="1" name="missedCalls" placeholder="Introduce dato" />
+                  <input type="number" min="0" step="1" name="missedCalls" value="22" />
                 </label>
                 <label>
                   <span>% de llamadas con intención real de cita</span>
-                  <input type="number" min="0" max="100" step="0.1" name="appointmentIntentPct" placeholder="Introduce dato" />
+                  <input type="number" min="0" max="100" step="0.1" name="appointmentIntentPct" value="40" />
                 </label>
                 <label>
                   <span>% de recuperación gracias al sistema</span>
-                  <input type="number" min="0" max="100" step="0.1" name="recoveryPct" placeholder="Introduce dato" />
+                  <input type="number" min="0" max="100" step="0.1" name="recoveryPct" value="30" />
                 </label>
                 <label>
                   <span>Valor medio por paciente o tratamiento</span>
-                  <input type="number" min="0" step="0.01" name="averageValue" placeholder="Introduce dato" />
-                </label>
-              </div>
-
-              <div class="form-group">
-                <p class="mini-label">Hipótesis de eficiencia operativa</p>
-                <label>
-                  <span>Ahorro de tiempo de recepción (horas/mes)</span>
-                  <input type="number" min="0" step="0.1" name="hoursSaved" placeholder="Introduce dato" />
-                </label>
-                <label>
-                  <span>Coste hora de recepción</span>
-                  <input type="number" min="0" step="0.01" name="hourlyCost" placeholder="Introduce dato" />
+                  <input type="number" min="0" step="0.01" name="averageValue" value="260" />
                 </label>
               </div>
 
@@ -816,11 +872,11 @@
                 <p class="mini-label">Hipótesis de uso de voz</p>
                 <label>
                   <span>Minutos estimados de atención de voz al mes</span>
-                  <input type="number" min="0" step="1" name="voiceMinutes" placeholder="Introduce dato" />
+                  <input type="number" min="0" step="1" name="voiceMinutes" value="90" />
                 </label>
                 <label>
                   <span>Coste medio por minuto de voz</span>
-                  <input type="number" min="0" step="0.01" name="voiceCostPerMinute" placeholder="0,09 - 0,12" />
+                  <input type="number" min="0" step="0.01" name="voiceCostPerMinuteReference" value="0.10" readonly />
                 </label>
               </div>
             </form>
@@ -844,10 +900,6 @@
                   <h3 id="recoveredRevenue">-</h3>
                 </article>
                 <article class="kpi-card">
-                  <p class="mini-label">Ahorro operativo mensual</p>
-                  <h3 id="operationalSavings">-</h3>
-                </article>
-                <article class="kpi-card">
                   <p class="mini-label">Coste variable de voz</p>
                   <h3 id="voiceUsageCost">-</h3>
                 </article>
@@ -859,53 +911,19 @@
                   <p class="mini-label">Retorno neto mensual estimado</p>
                   <h3 id="netImpact">-</h3>
                 </article>
+                <article class="kpi-card">
+                  <p class="mini-label">Punto estimado de recuperación</p>
+                  <h3 id="paybackMonthsMetric">-</h3>
+                </article>
               </div>
 
-              <div class="roi-bars">
-                <div class="bar-row">
-                  <span>Ingreso recuperado</span>
-                  <div class="bar-track"><div class="bar-fill bar-fill-accent" id="barRecoveredRevenue"></div></div>
-                  <strong id="barRecoveredRevenueLabel">-</strong>
-                </div>
-                <div class="bar-row">
-                  <span>Ahorro operativo</span>
-                  <div class="bar-track"><div class="bar-fill bar-fill-soft" id="barOperationalSavings"></div></div>
-                  <strong id="barOperationalSavingsLabel">-</strong>
-                </div>
-                <div class="bar-row">
-                  <span>Uso de voz estimado</span>
-                  <div class="bar-track"><div class="bar-fill bar-fill-cost" id="barVoiceUsageCost"></div></div>
-                  <strong id="barVoiceUsageCostLabel">-</strong>
-                </div>
-                <div class="bar-row">
-                  <span>Coste mensual total</span>
-                  <div class="bar-track"><div class="bar-fill bar-fill-cost" id="barTotalMonthlyCost"></div></div>
-                  <strong id="barTotalMonthlyCostLabel">-</strong>
-                </div>
-              </div>
-
-              <div class="roi-footnotes">
-                <article class="formula-card">
-                  <p class="mini-label">Lógica de cálculo</p>
-                  <p>
-                    Llamadas perdidas × % con intención de cita × % de recuperación =
-                    oportunidades recuperadas.
-                  </p>
-                </article>
-                <article class="formula-card">
-                  <p class="mini-label">Plazo estimado de recuperación</p>
-                  <p id="paybackCopy">
-                    Al incorporar inversión inicial y retorno neto mensual, aquí se mostrará el
-                    plazo estimado de recuperación.
-                  </p>
-                </article>
-                <article class="formula-card">
-                  <p class="mini-label">Punto de equilibrio</p>
-                  <p id="breakEvenCopy">
-                    El modelo mostrará cuántas oportunidades recuperadas al mes bastan
-                    para cubrir el coste mensual total.
-                  </p>
-                </article>
+              <div class="roi-timeline-card">
+                <p class="mini-label">ROI por meses</p>
+                <h3>Retorno acumulado estimado</h3>
+                <p id="roiTimelineCopy">
+                  Con las hipótesis base, aquí se mostrará la evolución del retorno acumulado.
+                </p>
+                <div class="roi-months" id="roiMonths"></div>
               </div>
             </div>
           </div>
@@ -937,6 +955,7 @@
               <li>Diseño del guion conversacional y límites clínicos</li>
               <li>Configuración de escenarios, horarios y desvíos</li>
               <li>Activación del circuito WhatsApp + Doctoralia</li>
+              <li>Bonus incluido: analizador comercial de llamadas de recepción</li>
               <li>Piloto inicial con revisión y optimización</li>
             </ul>
           </div>

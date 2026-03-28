@@ -157,16 +157,6 @@ function formatNumber(value) {
   return value > 0 ? decimalFormatter.format(value) : "-";
 }
 
-function setBar(elementId, labelId, value, maxValue, formatter) {
-  const bar = document.getElementById(elementId);
-  const label = document.getElementById(labelId);
-  if (!bar || !label) return;
-
-  const width = maxValue > 0 ? Math.max((value / maxValue) * 100, 0) : 0;
-  bar.style.width = `${Math.min(width, 100)}%`;
-  label.textContent = value > 0 ? formatter(value) : "-";
-}
-
 function updateRoi() {
   const form = document.getElementById("roiForm");
   if (!form) return;
@@ -176,8 +166,6 @@ function updateRoi() {
   const appointmentIntentPct = getValue(formData, "appointmentIntentPct") / 100;
   const recoveryPct = getValue(formData, "recoveryPct") / 100;
   const averageValue = getValue(formData, "averageValue");
-  const hoursSaved = getValue(formData, "hoursSaved");
-  const hourlyCost = getValue(formData, "hourlyCost");
   const monthlyCost = getValue(formData, "monthlyCost");
   const setupCost = getValue(formData, "setupCost");
   const voiceMinutes = getValue(formData, "voiceMinutes");
@@ -185,36 +173,32 @@ function updateRoi() {
 
   const recoveredAppointments = missedCalls * appointmentIntentPct * recoveryPct;
   const recoveredRevenue = recoveredAppointments * averageValue;
-  const operationalSavings = hoursSaved * hourlyCost;
   const voiceUsageCost = voiceMinutes * voiceCostPerMinute;
   const totalMonthlyCost = monthlyCost + voiceUsageCost;
-  const grossImpact = recoveredRevenue + operationalSavings;
+  const grossImpact = recoveredRevenue;
   const netImpact = grossImpact - totalMonthlyCost;
   const paybackMonths =
     setupCost > 0 && netImpact > 0 ? setupCost / netImpact : 0;
   const breakEvenAppointments =
     averageValue > 0
-      ? Math.max((totalMonthlyCost - operationalSavings) / averageValue, 0)
+      ? Math.max(totalMonthlyCost / averageValue, 0)
       : 0;
 
   const recoveredAppointmentsEl = document.getElementById("recoveredAppointments");
   const recoveredRevenueEl = document.getElementById("recoveredRevenue");
-  const operationalSavingsEl = document.getElementById("operationalSavings");
   const voiceUsageCostEl = document.getElementById("voiceUsageCost");
   const totalMonthlyCostEl = document.getElementById("totalMonthlyCost");
   const netImpactEl = document.getElementById("netImpact");
+  const paybackMonthsMetricEl = document.getElementById("paybackMonthsMetric");
   const roiNarrativeEl = document.getElementById("roiNarrative");
-  const paybackCopyEl = document.getElementById("paybackCopy");
-  const breakEvenCopyEl = document.getElementById("breakEvenCopy");
+  const roiTimelineCopyEl = document.getElementById("roiTimelineCopy");
+  const roiMonthsEl = document.getElementById("roiMonths");
 
   if (recoveredAppointmentsEl) {
     recoveredAppointmentsEl.textContent = formatNumber(recoveredAppointments);
   }
   if (recoveredRevenueEl) {
     recoveredRevenueEl.textContent = formatCurrency(recoveredRevenue);
-  }
-  if (operationalSavingsEl) {
-    operationalSavingsEl.textContent = formatCurrency(operationalSavings);
   }
   if (voiceUsageCostEl) {
     voiceUsageCostEl.textContent = formatCurrency(voiceUsageCost);
@@ -226,6 +210,9 @@ function updateRoi() {
     netImpactEl.textContent =
       netImpact > 0 ? currencyFormatter.format(netImpact) : netImpact < 0 ? `-${currencyFormatter.format(Math.abs(netImpact))}` : "-";
   }
+  if (paybackMonthsMetricEl) {
+    paybackMonthsMetricEl.textContent = paybackMonths > 0 ? `${decimalFormatter.format(paybackMonths)} meses` : "-";
+  }
 
   if (roiNarrativeEl) {
     if (grossImpact > 0) {
@@ -233,9 +220,7 @@ function updateRoi() {
         recoveredAppointments,
       )} oportunidades al mes, generar ${currencyFormatter.format(
         recoveredRevenue,
-      )} de ingreso potencial y aportar ${currencyFormatter.format(
-        operationalSavings,
-      )} en eficiencia operativa, frente a un coste mensual total estimado de ${currencyFormatter.format(
+      )} de ingreso potencial, frente a un coste mensual total estimado de ${currencyFormatter.format(
         totalMonthlyCost,
       )}.`;
     } else {
@@ -244,36 +229,39 @@ function updateRoi() {
     }
   }
 
-  if (paybackCopyEl) {
-    if (setupCost > 0 && netImpact > 0) {
-      paybackCopyEl.textContent = `Con estas hipótesis, la inversión inicial se recuperaría en aproximadamente ${decimalFormatter.format(
+  if (roiTimelineCopyEl) {
+    if (netImpact > 0) {
+      roiTimelineCopyEl.textContent = `Con estas hipótesis base, el retorno acumulado pasa a ser positivo aproximadamente en el mes ${Math.ceil(
         paybackMonths,
-      )} meses.`;
-    } else if (setupCost > 0) {
-      paybackCopyEl.textContent =
-        "Para calcular recuperación de implantación, el retorno neto mensual debe ser positivo.";
-    } else {
-      paybackCopyEl.textContent =
-        "Al incorporar inversión inicial y retorno neto mensual, aquí se mostrará el plazo estimado de recuperación.";
-    }
-  }
-
-  if (breakEvenCopyEl) {
-    if (averageValue > 0 && totalMonthlyCost > 0) {
-      breakEvenCopyEl.textContent = `Con estas hipótesis, bastaría recuperar aproximadamente ${decimalFormatter.format(
+      )}. El punto de equilibrio mensual se sitúa en torno a ${decimalFormatter.format(
         breakEvenAppointments,
-      )} oportunidades al mes para cubrir el coste mensual total.`;
+      )} oportunidades recuperadas al mes.`;
     } else {
-      breakEvenCopyEl.textContent =
-        "El modelo mostrará cuántas oportunidades recuperadas al mes bastan para cubrir el coste mensual total.";
+      roiTimelineCopyEl.textContent =
+        "Con un retorno neto mensual no positivo, el retorno acumulado no llegaría a compensar la inversión inicial.";
     }
   }
 
-  const maxBarValue = Math.max(recoveredRevenue, operationalSavings, voiceUsageCost, totalMonthlyCost, 1);
-  setBar("barRecoveredRevenue", "barRecoveredRevenueLabel", recoveredRevenue, maxBarValue, currencyFormatter.format);
-  setBar("barOperationalSavings", "barOperationalSavingsLabel", operationalSavings, maxBarValue, currencyFormatter.format);
-  setBar("barVoiceUsageCost", "barVoiceUsageCostLabel", voiceUsageCost, maxBarValue, currencyFormatter.format);
-  setBar("barTotalMonthlyCost", "barTotalMonthlyCostLabel", totalMonthlyCost, maxBarValue, currencyFormatter.format);
+  if (roiMonthsEl) {
+    const paybackMonth = netImpact > 0 ? Math.ceil(paybackMonths) : null;
+    const monthsToShow = Math.min(Math.max((paybackMonth || 4) + 2, 6), 12);
+
+    roiMonthsEl.innerHTML = Array.from({ length: monthsToShow }, (_, index) => {
+      const month = index + 1;
+      const cumulative = (netImpact * month) - setupCost;
+      const stateClass = cumulative >= 0 ? "is-positive" : "is-negative";
+      const paybackClass = paybackMonth === month ? "is-payback" : "";
+      const stateLabel = cumulative >= 0 ? "Acumulado positivo" : "Pendiente de recuperar";
+
+      return `
+        <article class="roi-month-card ${stateClass} ${paybackClass}">
+          <span class="roi-month-label">Mes ${month}</span>
+          <strong>${currencyFormatter.format(cumulative)}</strong>
+          <p>${stateLabel}</p>
+        </article>
+      `;
+    }).join("");
+  }
 }
 
 function setupNavObserver() {
